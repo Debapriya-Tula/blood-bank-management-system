@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Django Forms Tutorial</title>
+</head>
+<body>
+<h2>Django Forms Tutorial</h2>
+<form method="post" action="">
+	{% csrf_token %}
+	<input type="hidden" id="csrf_token" value='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>    
+	<table>
+        <tr>
+            <td>Enter your name:</td>
+            <td><input type="text" name="name"/></td>
+        </tr>
+        <tr>
+            <td>Enter your email:</td>
+            <td><input type="email" name="email"/></td>
+        </tr>
+        <tr>
+            <td>Enter your User Name:</td>
+            <td><input type="text" name="uname"/></td>
+        </tr>
+        <tr>
+            <td>Enter your password:</td>
+            <td><input type="password" name="passwd"/></td>
+        </tr>
+        <tr>
+            <td>Enter your date of birth:</td>
+            <td><input type="date" name="dob"/></td>
+        </tr>
+        <tr>
+            <td>Enter your line1:</td>
+            <td><input type="text" name="line1"/></td>
+        </tr>
+        <tr>
+            <td>Enter your line2:</td>
+            <td><input type="text" name="line2"/></td>
+        </tr>
+        <tr>
+            <td>Enter your City:</td>
+            <td><input type="text" name="city"/></td>
+        </tr>
+        <tr>
+            <td>Enter your postalcode:</td>
+            <td><input type="text" name="postalcode"/></td>
+        </tr>
+        <tr>
+            <td>Enter your country:</td>
+            <td><input type="text" name="country"/></td>
+        </tr>
+        <tr>
+            <td>
+
+            </td>
+            <td>
+                <button>Submit Form</button>
+            </td>
+        </tr>
+<!--        </tr>
+            <td>
+                <a href="{% url 'social:begin' 'facebook' %}">Login with Facebook</a>
+            </td>
+        </tr>-->
+</table>
+</form>
+</body>
+</html>
