@@ -1,3 +1,6 @@
 from django.test import TestCase
+import unittest
+from .views import login
 
-# Create your tests here.
+#class logintest(unittest.TestCase):
+
