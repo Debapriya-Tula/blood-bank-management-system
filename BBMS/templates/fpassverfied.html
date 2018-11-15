@@ -1,0 +1,14 @@
+<html>
+	<head>
+		<title>forgot password</title>
+	</head>
+	<body>
+		Hello {{ uname }}
+		<form method="POST" action="verify/">
+			<table>
+				<input type="hidden" name="uname" value="{{ username }}"/>
+				{{ form }}
+			</table>
+		</form>
+	</body>
+</html>
