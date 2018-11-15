@@ -256,10 +256,11 @@ def logout(request):
 	return HttpResponse("<p>You're logged out.</p>")
 
 def fpassinit(request):
-#	if request.method == 'POST':
-		context = {'email':'sowrisurya@outlook.com','username':'Sowri','catg':'donor'}
-#		context['email'] = request.POST.get('email')
-#		context['username'] = request.POST.get('uname')
+	if request.method == 'POST':
+		context = {}
+		context['email'] = request.POST.get('email')
+		context['username'] = request.POST.get('uname')
+		context['catg'] = request.POST.get('catg')
 		print(context)
 		if context['catg'] == "donor":
 			fndb = Donor_reg
@@ -283,17 +284,19 @@ def fpassinit(request):
 
 		else:
 			return HttpResponse("sorry but the details are not matching with the database")
-#	else:
-#		template = loader.get_template('fpassinit.html')
-#		return HttpResponse(template.render())
+	else:
+		template = loader.get_template('fpassinit.html')
+		return HttpResponse(template.render())
 
 def fpassotp(request):
 	if request.method == 'POST':
+		catg = request.POST.get('catg')
+		print(catg)
 		otp = int(request.POST.get('otp'))
 		uname = request.POST.get('uname')
 		print(otp,uname)
 		try:
-			context = {'uname':"sowri",'form':passconfrm}
+			context = {'uname':"Sowri",'form':passconfrm, "catg":catg}
 			cd = int(get_data('ab',uname,veremail))
 			if cd == otp:
 				template = loader.get_template('fpassverfied.html')
@@ -302,6 +305,27 @@ def fpassotp(request):
 				return HttpResponse("OTP doesn't match.")
 		except:
 			return HttpResponse("Sorry. But either the username doesn't exist or you've bypassed the OTP verifcation. ")
-	
+
 	else:
 		return HttpResponseRedirect("/accounts/login/")
+
+def chpass(request):
+	if request.method == "POST":
+		ctg = request.POST.get("catg")
+		p1 = request.POST.get("password")
+		p2 = request.POST.get("passwordconfrm")
+		uname = request.POST.get("uname")
+		if p1 == p2:
+			print("working",p1,p2)
+			fndb = None
+			if ctg == "donor":
+				fndb = Donor_reg
+			elif ctg == "hospital":
+				fndb = Hospital_reg
+			elif ctg == "patient":
+				fndb = Patient_reg
+			fndb.objects.filter(username = uname).update(password=md5hash(p1))
+			print("succesfully changed password")
+		return HttpResponseRedirect("/accounts/login")
+	else:
+		return HttpResponseRedirect("/")
