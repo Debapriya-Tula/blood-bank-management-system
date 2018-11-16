@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<br>
+<div class="button-group">
+	<a href="{% url 'inv-RBC' %}" class="btn btn-primary btn-md" role="button">RBCL</a>
+	<a href="{% url 'inv-Plasma' %}" class="btn btn-primary btn-md" role="button">Plasma</a>
+	<a href="{% url 'inv-Platelet' %}" class="btn btn-primary btn-md" role="button">Platelets</a>
+
+	<a href="{% url 'inv-add' %}" class="btn btn-success" role="button">Add Stock</a>
+	<a href="{% url 'inv-delete' %}" class="btn btn-danger" role="button">Delete Stock</a>
+	<a href="{% url 'inv-unit' %}" class="btn btn-danger" role="button">Unit Account</a>
+
+</div>
+
+<br>
+<table class="table table-hover, table table-borderless">
+	<thead>
+		<tr>
+			<th>Unit</th>
+			<th>Product</th>
+			<th>Blood Type</th>
+			<th>Donate Date</th>
+			<th>Time Left</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th colspan="5" class="table-success">Red Blood Cells</th>
+		</tr>
+		{% for item in items1 %}
+			<tr>
+				<td>{{ item.units }}</td>
+				<td>RBCL</td>
+				<td>{{ item.blood_type }}</td>
+				<td>{{ item.donate_date | date:"F d, Y" }}</td>
+				<td>{{ item.time_passed }} H</td>
+			</tr>
+		{% endfor %}
+		<tr>
+			<th colspan="5" class="table-info">Number of Red Blood Cells Units: {{ count1 }}</th>
+		</tr>
+		<tr><th colspan="5"></th></tr>
+	</tbody>
+	
+	<tbody>
+		<tr>
+			<th colspan="5" class="table-success">Plasma</th>
+		</tr>
+		{% for item2 in items2 %}
+			<tr>
+				<td>{{ item2.units }}</td>
+				<td>Plasma</td>
+				<td>{{ item2.blood_type }}</td>
+				<td>{{ item2.donate_date | date:"F d, Y" }}</td>
+				<td>{{ item2.time_passed }} H</td>
+			</tr>
+		{% endfor %}
+		<tr>
+			<th colspan="5" class="table-info">Number of Plasma Units: {{ count2 }}</th>
+		</tr>
+		<tr><th colspan="5"></th></tr>
+	</tbody>
+	
+	<tbody>
+		<tr>
+			<th colspan="5" class="table-success">Platelets</th>
+		</tr>
+		{% for item3 in items3 %}
+			<tr>
+				<td>{{ item3.units }}</td>
+				<td>Platelets</td>
+				<td>----</td>
+				<td>{{ item3.donate_date | date:"F d, Y" }}</td>
+				<td>{{ item3.time_passed }} H</td>
+			</tr>
+		{% endfor %}
+		<tr>
+			<th colspan="5" class="table-info">Number of Platelet Units: {{ count3 }}</th>
+		</tr>
+		<tr><th colspan="5"></th></tr>
+	</tbody>
+	
+
+</table>	
+
+{% endblock content %}
