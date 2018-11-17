@@ -3,10 +3,11 @@
 		<title>forgot password</title>
 	</head>
 	<body>
-		Hello {{ uname }}
+		Hello {{ uname }} {{ catg }}
 		<form method="POST" action="verify/">
 			<table>
 				<input type="hidden" name="uname" value="{{ username }}"/>
+				<input type="hidden" name="catg" value="{{ catg }}"/>
 				<tr>
 					<td>
 						Enter the OTP sent to your mail id:

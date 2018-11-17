@@ -95,13 +95,13 @@
             </button>
             <div class="dropdown-content">
                 {% if userp %}
-                    <a href="#">{{ userp }}</a>
+                    <a href="/accounts/profile/?catg=user">{{ userp }}</a>
                 {% endif %}
                 {% if donor %}
-                    <a href="#">{{ donor }}</a>
+                    <a href="/accounts/profile/?catg=donor">{{ donor }}</a>
                 {% endif %}
                 {% if hospital %}
-                    <a href="#">{{ hospital }}</a>
+                    <a href="/accounts/profile/?catg=hospital">{{ hospital }}</a>
                 {% endif %}
                 <a href="/accounts/login/">Log In</a>
             </div>

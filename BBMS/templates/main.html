@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+{%  load staticfiles %}
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>BLOOD BANK</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <!-- styles -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600,700" rel="stylesheet">
+  <link href="{% static "assets/css/bootstrap.css" %}" rel="stylesheet">
+  <link href="{% static "assets/css/bootstrap-responsive.css" %}" rel="stylesheet">
+  <link href="{% static "assets/css/docs.css" %}"rel="stylesheet">
+  <link href="{% static "assets/css/prettyPhoto.css" %}" rel="stylesheet">
+  <link href="{%  static "assets/js/google-code-prettify/prettify.css" %}" rel="stylesheet">
+  <link href="{% static "assets/css/flexslider.css" %}" rel="stylesheet">
+  <link href="{% static "assets/css/sequence.css" %}" rel="stylesheet">
+  <link href="{% static "assets/css/style.css" %}" rel="stylesheet">
+  <link href="{% static "assets/color/default.css" %}" rel="stylesheet">
+
+  <!-- fav and touch icons -->
+<!--  <link rel="shortcut icon" href="assets/ico/favicon.ico">
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png"> -->
+
+<body>
+  <header>
+    <!-- Navbar
+    ================================================== -->
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <!-- logo -->
+          <a class="brand logo" href="index.html"><img src="{% static "assets/img/logo.png" %}"  width="149" height="20" alt=""></a>
+          <!-- end logo -->
+          <!-- top menu -->
+          <div class="navigation">
+            <nav>
+              <ul class="nav topnav">
+                <li class="dropdown active">
+                  <a href="index.html">Home</a>
+                </li>
+                <li class="dropdown">
+                  <a href="#">Features</a>
+                  <ul class="dropdown-menu">
+<!--                    <li><a href="overview.html">Overview</a></li>
+                    <li><a href="scaffolding.html">Scaffolding</a></li>
+                    <li><a href="base-css.html">Base CSS</a></li>
+                    <li><a href="components.html">Components</a></li>
+                    <li><a href="javascript.html">Javascripts</a></li>
+                    <li><a href="icons.html">More icons</a></li>
+                    <li class="dropdown"><a href="#">3rd level</a>
+                      <ul class="dropdown-menu sub-menu">
+                        <li><a href="#">Example menu</a></li>
+                        <li><a href="#">Example menu</a></li>
+                        <li><a href="#">Example menu</a></li>
+                      </ul>
+                    </li>-->
+                  </ul>
+                </li>
+                <li class="dropdown">
+                  <a href="#">Accounts</a>
+                  <ul class="dropdown-menu">
+                      {% if userp %}
+                          <li><a href="/accounts/profile/?catg=user">{{ userp }}</a></li>
+                      {% endif %}
+                      {% if donor %}
+                          <li><a href="/accounts/profile/?catg=donor">{{ donor }}</a></li>
+                      {% endif %}
+                      {% if hospital %}
+                          <li><a href="/accounts/profile/?catg=hospital">{{ hospital }}</a></li>
+                      {% endif %}
+                      <li><a href="/accounts/login/">Log In</a></li>
+                      <li><a href="/accounts/register/">Register</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                  <a href="#">Blog</a>
+                  <ul class="dropdown-menu">
+                    <li><a href="blog_left_sidebar.html">Blog left sidebar</a></li>
+                    <li><a href="blog_right_sidebar.html">Blog right sidebar</a></li>
+                    <li><a href="post_left_sidebar.html">Post left sidebar</a></li>
+                    <li><a href="post_right_sidebar.html">Post right sidebar</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="contact.html">Contact</a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+          <!-- end menu -->
+        </div>
+      </div>
+    </div>
+  </header>
+  <section id="intro">
+    <div class="jumbotron masthead">
+      <div class="container">
+        <!-- slider navigation -->
+        <div class="sequence-nav">
+          <div class="prev">
+            <span></span>
+          </div>
+          <div class="next">
+            <span></span>
+          </div>
+        </div>
+        <!-- end slider navigation -->
+        <div class="row">
+          <div class="span12">
+            <div id="slider_holder">
+              <div id="sequence">
+                <ul>
+                  <!-- Layer 1 -->
+                  <li>
+                    <div class="info animate-in">
+                      <h2>HOSPITALS</h2>
+                      <br>
+                      <h3>Corporate business</h3>
+                      <p>
+                          Some text
+                      </p>
+                      <a class="btn btn-success" href="{% if hospital %}/transaction_page/{% else %}/accounts/login/{% endif %}">Proceed further &raquo;</a>
+                    </div>
+                    <img class="slider_img animate-in" src="{% static "assets/img/slides/sequence/img-1.png"  %}" alt="">
+                  </li>
+                  <!-- Layer 2 -->
+                  <li>
+                    <div class="info">
+                      <h2>Willing to donate blood?</h2>
+                      <br>
+                      <h3>Rich of features</h3>
+                      <p>
+                          Some text
+                        </p>
+                      <a class="btn btn-success" href="{% if donor %}/transaction_page/{% else %}/accounts/login/{% endif %}">Donate here&raquo;</a>
+                    </div>
+                    <img class="slider_img" src="{% static "assets/img/slides/sequence/img-2.png" %}" alt="">
+                  </li>
+                  <!-- Layer 3 -->
+                  <li>
+                    <div class="info">
+                      <h2>Patient? Need blood?</h2>
+                      <br>
+                      <h3>Latest technology</h3>
+                      <p>
+                      </p>
+                      <a class="btn btn-success" href="{% if userp %}/transaction_page/{% else %}/accounts/login/{% endif %}">Get it from here &raquo;</a>
+                    </div>
+                    <img class="slider_img" src="{% static "assets/img/slides/sequence/img-3.png" %}" alt="">
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <!-- Sequence Slider::END-->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer
+ ================================================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="span4">
+          <div class="widget">
+            <h5>Browse pages</h5>
+            <ul class="regular">
+              <li><a href="#">Work for us</a></li>
+              <li><a href="#">Creative process</a></li>
+              <li><a href="#">Case study</a></li>
+              <li><a href="#">Scaffold awwards</a></li>
+              <li><a href="#">Meet the team</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="span4">
+          <div class="widget">
+            <h5>Recent blog posts</h5>
+            <ul class="regular">
+              <li><a href="#">Lorem ipsum dolor sit amet</a></li>
+              <li><a href="#">Mea malis nominavi insolens ut</a></li>
+              <li><a href="#">Minim timeam has no aperiri sanctus ei mea per pertinax</a></li>
+              <li><a href="#">Te malorum dignissim eos quod sensibus</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="span4">
+          <div class="widget">
+            <!-- logo -->
+            <a class="brand logo" href="index.html">
+							<img src="{% static "assets/img/logo.png" %}"  width="149" height="20" alt="">
+						</a>
+            <!-- end logo -->
+            <address>
+							<strong>Registered Companyname, Inc.</strong><br>
+							 8895 Somename Ave, Suite 600<br>
+							 San Francisco, CA 94107<br>
+							<abbr title="Phone">P:</abbr> (123) 456-7890
+						</address>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="verybottom">
+      <div class="container">
+        <div class="row">
+          <div class="span6">
+            <p>
+              &copy; Serenity - All right reserved
+            </p>
+          </div>
+          <div class="span6">
+            <div class="credits">
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript Library Files -->
+  <script src="{% static "assets/js/jquery.min.js" %}"></script>
+  <script src="{% static "assets/js/jquery.easing.js" %}"></script>
+  <script src="{% static "assets/js/google-code-prettify/prettify.js" %}"></script>
+  <script src="{% static "assets/js/modernizr.js" %}"></script>
+  <script src="{%  static "assets/js/bootstrap.js" %}"></script>
+  <script src="{%  static "assets/js/jquery.elastislide.js" %}"></script>
+  <script src="{%  static "assets/js/sequence/sequence.jquery-min.js" %}"></script>
+  <script src="{%  static "assets/js/sequence/setting.js" %}"></script>
+  <script src="{% static "assets/js/jquery.prettyPhoto.js" %}"></script>
+  <script src="{%  static "assets/js/application.js" %}"></script>
+  <script src="{%  static "assets/js/jquery.flexslider.js" %}"></script>
+  <script src="{%  static "assets/js/hover/jquery-hover-effect.js" %}"></script>
+  <script src="{%  static "assets/js/hover/setting.js" %}"></script>
+
+  <!-- Template Custom JavaScript File -->
+  <script src="{%  static "assets/js/custom.js" %}"></script>
+
+</body>
+</html>

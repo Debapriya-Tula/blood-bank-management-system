@@ -3,11 +3,25 @@
 		<title>forgot password</title>
 	</head>
 	<body>
-		Hello {{ uname }}
-		<form method="POST" action="verify/">
+		Hello {{ uname }} {{ catg }}
+		<form method="POST" action="change_pass/">
 			<table>
-				<input type="hidden" name="uname" value="{{ username }}"/>
-				{{ form }}
+				<input type="hidden" name="uname" value="{{ uname }}"/>
+				<input type="hidden" name="catg" value="{{ catg }}"/>
+				<tr>
+					<td>
+							{{ form }}
+					</td>
+				</tr>
+				<tr>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+							<input type="submit" value='Submit'/>
+					</td>
+				</tr>
 			</table>
 		</form>
 	</body>
