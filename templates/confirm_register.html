@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Django Forms Tutorial</title>
+</head>
+<body>
+<h2>Django Forms Tutorial</h2>
+<form method="post" action="/accounts/confirm_register/">
+    <input type="hidden" value="{{ uname }}" name="uname"/>
+    <input type="hidden" value="{{ catg }}" name="catg"/>
+    <table>
+        <tr>
+            <td>Hello {{ uname }} .Enter OTP sent to your mail id:</td>
+            <td><input type="number" name="code"/></td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" value="Submit"/>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
