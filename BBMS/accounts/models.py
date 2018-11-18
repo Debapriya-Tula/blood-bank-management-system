@@ -70,13 +70,13 @@ class Hospital_reg(models.Model):
 	email = models.EmailField()
 	password = models.CharField(max_length = 30)
 	hospital_name = models.CharField(max_length = 100)
-
 	ad_line1 = models.CharField(max_length=150)
 	ad_line2 = models.CharField(max_length=150)
 	city = models.CharField(max_length = 50)
 	pincode = models.CharField(max_length = 6)
 	state = models.CharField(max_length = 20)
 	license = models.CharField(max_length = 10)
+#	ph_no = models.IntegerField()
 
 	def __str__(self):
 		return self.user.username

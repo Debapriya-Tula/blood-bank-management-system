@@ -42,8 +42,8 @@ def em_verified(name,db):
 		Donor_reg.objects.filter(username=name).update(email_verified=1)
 	elif db == "users":
 		Patient_reg.objects.filter(username=name).update(email_verified=1)
-	elif db == "hospital":
-		Hospital_reg.objects.filter(username=name).update(email_verified=1)
+#	elif db == "hospital":
+#		Hospital_reg.objects.filter(username=name).update(email_verified=1)
 
 def confirm_register(request):
 	if request.method == "POST":
@@ -72,7 +72,8 @@ def uptodb(ctg,details,cd):
 		new_entry = Donor_details.objects.create(userd = ne, ad_line1 = details['line1'], ad_line2 = details['line2'], pincode = details['postalcode'], city = details['city'], state = details['state'], gender = details['gender'], ph_no = details['ph_no'], d_o_b=details['dob'], weight = details['weight'], height = details['height'], blood_group = details['bgroup'])
 
 	elif str(ctg) == 'hospital':
-		ne = Hospital_reg.objects.create(username = details['uname'] ,email = details['email'], password = md5hash(details['passwd']), hospital_name = details['name'], ad_line1 = details['line1'], ad_line2 = details['line2'], pincode = details['postalcode'], city = details['city'], state = details['state'], license = details['license'],email_verified = 0)
+		ne = Hospital_reg.objects.create(username = details['uname'] ,email = details['email'], password = md5hash(details['passwd']), hospital_name = details['name'], ad_line1 = details['line1'], ad_line2 = details['line2'], pincode = details['postalcode'], city = details['city'], state = details['state'], license = details['license'])
+		#,email_verified = 0)
 
 	elif str(ctg) == 'users':
 		ne = Patient_reg.objects.create(username = details['uname'] ,email = details['email'], password = md5hash(details['passwd']), first_name = details['fname'], last_name = details['lname'], email_verified=0)
@@ -106,12 +107,12 @@ def register(request):
 				'height' : request.POST.get('height'),
 				'weight' : request.POST.get('weight'),
 			}
-			a=Donor_reg.objects.filter(email = details['email'])
-			if a:
-				flagem = 1
-			b=Donor_reg.objects.filter(username = details['uname'])
-			if b:
-				flagun = 1
+#			a=Donor_reg.objects.filter(email = details['email'])
+#			if a:
+#				flagem = 1
+#			b=Donor_reg.objects.filter(username = details['uname'])
+#			if b:
+#				flagun = 1
 
 		elif str(type) == str("hospital"):
 			details = {
@@ -127,12 +128,12 @@ def register(request):
 				'state' : request.POST.get('state'),
 				'license' : request.POST.get('license'),
 			}
-			a=Hospital_reg.objects.filter(email = details['email'])
-			if a:
-				flagem = 1
-			b=Hospital_reg.objects.filter(username = details['uname'])
-			if b:
-				flagun = 1
+#			a=Hospital_reg.objects.filter(email = details['email'])
+#			if a:
+#				flagem = 1
+#			b=Hospital_reg.objects.filter(username = details['uname'])
+#			if b:
+#				flagun = 1
 
 		elif str(type) == str("users"):
 			details = {
@@ -146,14 +147,15 @@ def register(request):
 				'ph_no' : request.POST.get('phno'),
 				'bgroup' : request.POST.get('bgroup'),
 			}
-			a=Patient_reg.objects.filter(email = details['email'])
-			if a:
-				flagem = 1
-			b=Patient_reg.objects.filter(username = details['uname'])
-			if b:
-				flagun = 1
-
+#			a=Patient_reg.objects.filter(email = details['email'])
+#			if a:
+#				flagem = 1
+#			b=Patient_reg.objects.filter(username = details['uname'])
+#			if b:
+#				flagun = 1
+		print(details)
 		if details:
+			print('working')
 #			return HttpResponse("Hello")
 			unm =  details['uname']		
 			context = {
@@ -164,20 +166,21 @@ def register(request):
 			email = details['email']
 			context.update(csrf(request))
 			code = rand(100000,999999)
-			if flagem==0:
-				if flagun == 0:
-					uptodb(type,details,code)
-					sub="OTP for registration in Blood_bank_management_website"
-					body="This is a computer generated mail. Please do not reply back to this email.<br> The OTP code for your registration process is"+str(code)
-					sendmail(email,sub,body)
-					template = loader.get_template('confirm_register.html')
-					return HttpResponse(template.render(context,request))
-				else:
-					HttpResponse("username already exixsts")
-			else:
-				return HttpResponse("email already exixsts")
+			print(code)
+#			if flagem==0:
+#				if flagun == 0:
+			uptodb(type,details,code)
+			sub="OTP for registration in Blood_bank_management_website"
+			body="This is a computer generated mail. Please do not reply back to this email.<br> The OTP code for your registration process is"+str(code)
+			sendmail(email,sub,body)
+			template = loader.get_template('confirm_register.html')
+			return HttpResponse(template.render(context,request))
+#				else:
+#					HttpResponse("username already exixsts")
+#			else:
+#				return HttpResponse("email already exixsts")
 	else:
-		template = loader.get_template('register/register.html')
+		template = loader.get_template('register.html')
 		context = {}
 		context.update(csrf(request))
 		return HttpResponse(template.render(context,request))
@@ -192,7 +195,7 @@ def login(request):
 		wry = dd['Who_are_you']
 		uname = dd['username']
 		passwd = dd['password']
-
+		print(uname)
 		if str(wry) == 'donor':
 			fndb = Donor_reg
 		elif str(wry) == 'hospital':
@@ -334,16 +337,18 @@ def profile(request):
 	catg = request.GET.get('catg')
 	var = 'sess_id_'+str(catg)
 	if request.session.has_key(var):
-		uname = request.session[var].split('_')[2]
+		print('working')
+		uname = request.session[var].split("_")[2]
+		print(uname)
 		al = dbp[catg].objects.filter(username = uname).get()
-		dt = dbt[catg].objects.filter(userd = al).get()
+#		dt = dbt[catg].objects.filter(userd = al).get()
 		context = {'uname' : uname}
 #		context['details'] = catg
 		if catg=="user":
-			context['userd'] = 1
+			context['catg'] = 'userd'
 		else:
-			context[catg] = 1
-		context['details'] = dt
+			context['catg'] = catg
+#		context['details'] = dt
 		template =  loader.get_template('profile.html')
 		return HttpResponse(template.render(context,request))
 	else:
@@ -360,4 +365,26 @@ def uppurofile(request):
 	return HttpResponse("Hello")
 
 def upsett(request):
-	return HttpResponse("Hello")
+	if request.method == "POST":
+		context = {}
+		passc = request.POST
+		pass1 = passc['passwd'] 
+		pass2 = passc['npasswd'] 
+		pass3 = passc['npasswdc']
+		uname = passc['uname']
+		fndb = dbp[passc['catg']]
+		print(fndb)
+		if fndb.objects.filter(username = uname):
+			if fndb.objects.filter(password = md5hash(pass1)):
+				if pass2 == pass3:
+					print("yes")
+					fndb.objects.filter(username = uname).update(password = md5hash(pass2))
+					return HttpResponseRedirect("/")
+				else:
+					context['newper'] = 1
+			else:
+				context['oldp'] = 1
+		template =  loader.get_template('profile.html')
+		return HttpResponse(template.render(context,request))
+	else:
+		return HttpResponseRedirect("/")
