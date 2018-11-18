@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  {% load static %}
+  <meta charset="utf-8">
+  <title>BLOOD BANK</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <!-- styles -->
+
+
+      <style>
+        img.resize{
+            height:450px;
+            width:800px;
+        }
+        .c1{
+	        top:100px;
+	        left:700px;
+	        position:absolute;
+        }
+    </style>
+
+</head>
+<body>
+{% block body %}
+    
+<section id="intro">
+<div class="jumbotron masthead">
+<div class="container">
+<!-- slider navigation -->
+<div class="sequence-nav">
+
+</div>
+<!-- end slider navigation -->
+<div class="row">
+  <div class="span12">
+    <div id="slider_holder">
+      <div id="sequence">
+        <div class=" container main-login main-center">
+            <form method="post" enctype="multipart/form-data" class="form">
+            {% csrf_token %}
+                <h2 style="color:red;text-align:center">Patient Portal</h2>
+                    <br>
+                <div class="form-group">
+                    Working hours:
+                    From<input type='time' name="fromtime"><br>
+                    <div style="margin-left:120px;">
+                        To<input type='time' name="totime">
+                    </div>
+                </div>
+                <br>
+        <div class="form-group">
+               Units of blood required:
+            <input type='number' name="units">
+        </div>
+        Doctors Prescription:
+        {{ form }}
+        <button type="submit">Upload</button>
+
+        {% if uploaded_file_url %}
+            <p>File uploaded at: <a href="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
+        {% endif %}
+
+
+    </form>
+
+    </div>
+      </div>
+
+
+</div>
+    </div>
+    <!-- Sequence Slider::END-->
+  </div>
+
+</div>
+</div>
+</div>
+{% endblock %}
+</section>
+
+
+
+  <!-- Footer
+ ================================================== -->
+  <footer class="footer">
+
+    <div class="verybottom">
+      <div class="container">
+        <div class="row">
+          <div class="span6">
+            <p>
+              &copy; BloodBank - All right reserved
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript Library Files -->
+
+    <script src="{% static "assets/js/jquery.min.js" %}"></script>
+    <script src="{% static "assets/js/jquery.easing.js" %}"></script>
+    <script src="{% static "assets/js/google-code-prettify/prettify.js" %}"></script>
+    <script src="{% static "assets/js/modernizr.js" %}"></script>
+    <script src="{% static "assets/js/bootstrap.js" %}"></script>
+    <script src="{% static "assets/js/jquery.elastislide.js" %}"></script>
+    <script src="{% static "assets/js/sequence/sequence.jquery-min.js" %}"></script>
+    <script src="{% static "assets/js/sequence/setting.js" %}"></script>
+    <script src="{% static "assets/js/jquery.prettyPhoto.js" %}"></script>
+    <script src="{% static "assets/js/application.js" %}"></script>
+    <script src="{% static "assets/js/jquery.flexslider.js" %}"></script>
+    <script src="{% static "assets/js/hover/jquery-hover-effect.js" %}"></script>
+    <script src="{% static "assets/js/hover/setting.js" %}"></script>
+
+  <!-- Template Custom JavaScript File -->
+  <script src="{% static "assets/js/custom.js" %}"></script>
+
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+
+<html lang="en">
+<head>
+
+  {% block extra_head %}
+    <style>
+        .errorbox{
+            border-radius: 20px;
+            border: 2px solid red;
+            padding-left: 20px;
+            padding-bottom: 20px;
+            height: 30px;
+            width: 180px;
+            background-color: darksalmon;
+            color:maroon;
+            font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        li{
+            list-style: none;
+            display: inline;:
+        }
+
+
+        #id_username {
+            border-radius: 5px;
+        }
+
+        #id_username:hover {
+            border-radius: 5px;
+            background-color:wheat;
+            color: black;
+        }
+
+        #id_password{
+            border-radius: 5px;
+        }
+
+        #id_password:hover {
+            border-radius: 5px;
+            background-color: wheat;
+            color: white;
+        }
+
+        table{
+            column-gap: 50px;
+        }
+
+
+    </style>
+    <meta charset="UTF-8">
+    <title>Login Form</title>
+  {% endblock %}
+</head>
+
+<body>
+{% block body %}
+<section id="intro">
+
+<center>
+
+<div class="row">
+  <div class="span12">
+    <div id="slider_holder">
+      <div id="sequence">
+<div class="container main-login main-center">
+<form method="post" action="/accounts/login/" class="form">
+  <h2>Login</h2>
+	{% csrf_token %}
+    {% if error %}
+        <div class="errorbox">
+            <p>
+                {{ error }}
+            </p>
+        </div>
+    {% endif %}
+	<table>
+        <tr>
+                {{ form }}
+        </tr>
+        <tr><td></td></tr>
+        <tr><td></td></tr>
+        <tr>
+            <td>
+            </td>
+            <td>
+                <button>Submit Form</button>
+            </td>
+        </tr>
+    </table><br>
+    <div class="fpass">
+        <a href="/accounts/forgot_password">Forgot password?</a>
+    </div>
+
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</center>
+
+{% endblock %}
+</section>
+</body>
+
+
+</html>
