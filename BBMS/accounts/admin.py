@@ -13,11 +13,11 @@ class Patient_regAdmin(admin.ModelAdmin):
 
 
 class Donor_regAdmin(admin.ModelAdmin):
-    fields = ['username','email','first_name','last_name','email_verified']
+    fields = ['username','email','first_name','las_name','email_verified']
     search_fields = ['username','email','first_name']
 
     list_filter = ['username','email_verified']
-    list_display = ['username','email','first_name','last_name','email_verified']
+    list_display = ['username','email','first_name','las_name','email_verified']
 
 
 class Patient_detailsAdmin(admin.ModelAdmin):

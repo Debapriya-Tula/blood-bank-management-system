@@ -11,6 +11,9 @@ from random import randint as rand
 import hashlib
 from .forms import loginform, passconfrm
 
+dbp = {'donor' : Donor_reg, 'user' : Patient_reg, 'hospital' : Hospital_reg}
+dbt = {'donor' : Donor_details, 'user' : Patient_details}
+
 def md5hash(msg):
 	rs = hashlib.md5(msg.encode())
 	return str(rs.hexdigest())
@@ -53,7 +56,6 @@ def confirm_register(request):
 			return HttpResponse("OTP's didn't match")
 		if int(cd) == int(code):
 			em_verified(uname,md)
-			print("Signed up successfully")
 			return HttpResponseRedirect('/')
 		else:
 			return HttpResponse("<h1>OTP didint match</h1>")
@@ -74,7 +76,7 @@ def uptodb(ctg,details,cd):
 
 	elif str(ctg) == 'users':
 		ne = Patient_reg.objects.create(username = details['uname'] ,email = details['email'], password = md5hash(details['passwd']), first_name = details['fname'], last_name = details['lname'], email_verified=0)
-		new_entry = Patient_details.objects.create(userp = ne, gender = details['gender'], ph_no = details['ph_no'], d_o_b = details['dob'], blood_group = details['bgroup'])
+		new_entry = Patient_details.objects.create(userd = ne, gender = details['gender'], ph_no = details['ph_no'], d_o_b = details['dob'], blood_group = details['bgroup'])
 
 	ef = veremail.objects.create(ab=int(cd), uname=str(details['uname']))
 
@@ -152,7 +154,6 @@ def register(request):
 				flagun = 1
 
 		if details:
-			print(details)
 #			return HttpResponse("Hello")
 			unm =  details['uname']		
 			context = {
@@ -176,7 +177,7 @@ def register(request):
 			else:
 				return HttpResponse("email already exixsts")
 	else:
-		template = loader.get_template('register.html')
+		template = loader.get_template('register/register.html')
 		context = {}
 		context.update(csrf(request))
 		return HttpResponse(template.render(context,request))
@@ -198,7 +199,6 @@ def login(request):
 			fndb = Hospital_reg
 		elif str(wry) == 'user':
 			fndb = Patient_reg
-
 #		try:
 		rs = fndb.objects.filter(username=uname,password=md5hash(passwd))
 		if rs:
@@ -261,7 +261,7 @@ def fpassinit(request):
 		context['email'] = request.POST.get('email')
 		context['username'] = request.POST.get('uname')
 		context['catg'] = request.POST.get('catg')
-		print(context)
+#		print(context)
 		if context['catg'] == "donor":
 			fndb = Donor_reg
 		elif context['catg'] == "hospital":
@@ -271,9 +271,9 @@ def fpassinit(request):
 
 		ig = fndb.objects.filter(username = context['username'],email = context['email'])
 		if ig:
-			print('you are amazing')
+#			print('you are amazing')
 			cd = rand(100000,999999)
-			print(cd)
+#			print(cd)
 			sub = "Request for change in password"
 			body = "We found that you are trying to change your " + str(context['catg']) + " account's password. We are sending the OTP to authenticate if this is you or not. Please do not share this OTP with anyone else. This is highly confidential. The OTP is " + str(cd)
 			dropindb(veremail,context['username'])
@@ -291,10 +291,10 @@ def fpassinit(request):
 def fpassotp(request):
 	if request.method == 'POST':
 		catg = request.POST.get('catg')
-		print(catg)
+#		print(catg)
 		otp = int(request.POST.get('otp'))
 		uname = request.POST.get('uname')
-		print(otp,uname)
+#		print(otp,uname)
 		try:
 			context = {'uname':"Sowri",'form':passconfrm, "catg":catg}
 			cd = int(get_data('ab',uname,veremail))
@@ -325,7 +325,39 @@ def chpass(request):
 			elif ctg == "patient":
 				fndb = Patient_reg
 			fndb.objects.filter(username = uname).update(password=md5hash(p1))
-			print("succesfully changed password")
+#			print("succesfully changed password")
 		return HttpResponseRedirect("/accounts/login")
 	else:
 		return HttpResponseRedirect("/")
+
+def profile(request):
+	catg = request.GET.get('catg')
+	var = 'sess_id_'+str(catg)
+	if request.session.has_key(var):
+		uname = request.session[var].split('_')[2]
+		al = dbp[catg].objects.filter(username = uname).get()
+		dt = dbt[catg].objects.filter(userd = al).get()
+		context = {'uname' : uname}
+#		context['details'] = catg
+		if catg=="user":
+			context['userd'] = 1
+		else:
+			context[catg] = 1
+		context['details'] = dt
+		template =  loader.get_template('profile.html')
+		return HttpResponse(template.render(context,request))
+	else:
+		return HttpResponseRedirect('/accounts/login')
+
+def uppurofile(request):
+	if request.method == "POST":
+		details = request.POST
+		uname = details['uname']
+		fndb = dbp[details['catg']]
+		print(uname)
+#		if 
+#		fndb.objects.filter()
+	return HttpResponse("Hello")
+
+def upsett(request):
+	return HttpResponse("Hello")
