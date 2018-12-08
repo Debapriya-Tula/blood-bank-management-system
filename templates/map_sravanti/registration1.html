@@ -1,0 +1,322 @@
+<html>
+
+<head>
+  <link href="assets/css/bootstrap.css" rel="stylesheet">
+  <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
+  <link href="assets/css/docs.css" rel="stylesheet">
+  <link href="assets/css/prettyPhoto.css" rel="stylesheet">
+  <link href="assets/js/google-code-prettify/prettify.css" rel="stylesheet">
+  <link href="assets/css/flexslider.css" rel="stylesheet">
+  <link href="assets/css/sequence.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+  <link href="assets/color/default.css" rel="stylesheet">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
+<link href="css/registration.css" rel="stylesheet">
+<link rel="stylesheet" href="css/main.css">
+<style>
+
+#Div2,#Div3
+{
+ display: none;
+}
+
+
+</style>
+<script>
+function divfunction()
+{
+    var x = document.getElementById("donorradio").checked;
+    var y = document.getElementById("userradio").checked;
+    var z = document.getElementById("hosradio").checked;
+
+    switch(true)
+    {
+        case x:
+                  {document.getElementById('Div1').style.display = 'block';
+                    document.getElementById('Div2').style.display = 'none';
+                    document.getElementById('Div3').style.display = 'none';
+                    break;}
+        case y:
+                  { document.getElementById('Div1').style.display = 'none';
+                    document.getElementById('Div2').style.display = 'block';
+                    document.getElementById('Div3').style.display = 'none';
+                    break;}
+
+        case z:
+                   {document.getElementById('Div1').style.display = 'none';
+                    document.getElementById('Div2').style.display = 'none';
+                    document.getElementById('Div3').style.display = 'block';
+                    break;}
+    }
+}
+</script>
+ <meta charset="utf-8">
+  <title>BLOOD BANK</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <!-- styles -->
+
+
+
+
+
+<!------ Include the above in your HEAD tag ---------->
+</head>
+<body>
+  <header>
+
+    <!-- Navbar
+    ================================================== -->
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <!-- logo -->
+          <a class="brand logo" href="index.html"><img src="assets/img/logo.png"  width="129" height="10" alt=""></a>
+          <!-- end logo -->
+          <!-- top menu -->
+          <div class="navigation">
+            <nav>
+              <ul class="nav topnav">
+                <li class="dropdown active">
+                  <a href="index.html">Home</a>
+                </li>
+                <li class="dropdown">
+                  <a href="#">Login or signup</a>
+                  <ul class="dropdown-menu">
+                    <li><a href="registration.html">donor/user</a></li>
+                    <li><a href="scaffolding.html">Hospital</a></li>
+
+                  </ul>
+                </li>
+                <li class="dropdown">
+                  <a href="#">Pages</a>
+                  <ul class="dropdown-menu">
+                <li><a onclick="document.getElementById('id01').style.display='block'" style="width:auto;">About us</a></li>
+                    <li><a href="pricingtable.html">Pricing table</a></li>
+                    <li><a href="fullwidth.html">Fullwidth</a></li>
+                    <li><a href="404.html">404</a></li>
+                  </ul>
+                </li>
+                <li class="dropdown">
+                  <a href="#">Blog</a>
+                  <ul class="dropdown-menu">
+                    <li><a href="blog_left_sidebar.html">Blog left sidebar</a></li>
+                    <li><a href="blog_right_sidebar.html">Blog right sidebar</a></li>
+                    <li><a href="post_left_sidebar.html">Post left sidebar</a></li>
+                    <li><a href="post_right_sidebar.html">Post right sidebar</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="contact.html">Contact</a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+          <!-- end menu -->
+        </div>
+      </div>
+    </div>
+  </header>
+
+<section id="intro">
+<div class="container register">
+                <div class="row">
+                    <div class="col-md-3 register-left">
+
+                                                 <b>LOGIN</b>
+                                        <input type="text"  placeholder="username *" value="" />
+
+
+                                        <input type="text" placeholder="password*" value="" />
+
+
+                        <input type="submit" name="" height="20"value="Login"/><br/>
+                    </div>
+                    <div class="col-md-9 register-right">
+
+
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                <h3 class="register-heading">REGISTRATION</h3>
+                                <div class="row register-form">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Username*" value="" />
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="E-mail *" value="" />
+                                        </div>
+                                                                                <div class="form-group">
+                                            <div class="maxl">
+                                                <label class="radio inline">
+                                                    <input type="radio" name="category" id="donorradio" value="donor" onclick="divfunction()" checked>
+                                                    <span> Donor </span>
+                                                </label>
+                                                <label class="radio inline">
+                                                   <input type="radio" name="category" id="hosradio" value="hospital" onclick="divfunction()">
+                                                    <span>Hospital </span>
+                                                </label>
+                                                <label class="radio inline">
+                                                     <input type="radio" name="category" id="userradio" value="users" onclick="divfunction()">
+
+                                                    <span>User </span>
+                                                </label>
+
+<div id="Div1">
+<div class="container">
+    <h3>Shipping Address</h3>
+
+    <div id="map">
+    </div>
+    <button id="showMe" class="btn">Use My Location</button>
+    <form id="shippingAddress">
+      <div id="locationList"></div>
+      <br>
+
+        <textarea class="input_fields materialize-textarea form-control" id="address" type="text"></textarea>
+        <label class="active" for="address">Address (Area and Street)</label>
+      </div>
+      <div class="input-field form-group">
+        <input class="input_fields form-control" id="fname" type="text">
+        <label class="active" for="fname">firstname</label>
+      </div>
+      <div class="input-field form-group">
+        <input class="input_fields form-control" id="lname" type="text">
+        <label class="active" for="lname">lastname</label>
+      </div>
+      <div class="input-field form-group">
+        <input class="input_fields form-control" id="city" type="text">
+        <label class="active" for="city">City/District/Town</label>
+      </div>
+     <div class="col-md-6">
+      <div class="input-field form-group">
+        <input class="input_fields form-control" id="postal_code" type="text">
+        <label class="active" for="pin_code">Pin Code</label>
+      </div>
+      <div class="input-field form-group">
+        <input class="input_fields form-control" id="state" type="text">
+        <label class="active" for="State">State</label>
+      </div>
+
+    </form>
+    <!-- You could add a fallback address gathering form here -->
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCH8o4TwEcdOVGYg6hQAfCws8V-J-z7NEk"></script>
+  <script src="main.js"></script>
+</div>
+<div id="Div2">
+<div class="container">
+    <h3>Shipping1 Address</h3>
+
+    <div id="map">
+    </div>
+    <button id="showMe" class="btn">Use My Location</button>
+    <form id="shippingAddress">
+      <div id="locationList"></div>
+      <br>
+      <div class="input-field form-group">
+        <textarea class="input_fields materialize-textarea form-control" id="address" type="text"></textarea>
+        <label class="active" for="address">Address (Area and Street)</label>
+      </div>
+       <div class="input-field form-group">
+        <input class="input_fields form-control" id="fname" type="text">
+        <label class="active" for="fname">firstname</label>
+      </div>
+      <div class="input-field form-group">
+        <input class="input_fields form-control" id="lname" type="text">
+        <label class="active" for="lname">lastname</label>
+      </div>
+      <div class="input-field form-group">
+        <input class="input_fields form-control" id="city" type="text">
+        <label class="active" for="city">City/District/Town</label>
+      </div>
+      <div class="input-field form-group">
+        <input class="input_fields form-control" id="postal_code" type="text">
+        <label class="active" for="pin_code">Pin Code</label>
+      </div>
+      <div class="input-field form-group">
+        <input class="input_fields form-control" id="state" type="text">
+        <label class="active" for="State">State</label>
+      </div>
+    </form>
+    <!-- You could add a fallback address gathering form here -->
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCH8o4TwEcdOVGYg6hQAfCws8V-J-z7NEk"></script>
+  <script src="main.js"></script>
+</div>
+<div id="Div3">
+
+<div class="container">
+    <h3>Shipping2 Address</h3>
+
+    <div id="map">
+    </div>
+    <button id="showMe" class="btn">Use My Location</button>
+    <form id="shippingAddress">
+      <div id="locationList"></div>
+      <br>
+      <div class="input-field form-group">
+        <textarea class="input_fields materialize-textarea form-control" id="address" type="text"></textarea>
+        <label class="active" for="address">Address (Area and Street)</label>
+      </div>
+      <div class="input-field form-group">
+        <input class="input_fields form-control" id="license" type="text">
+        <label class="active" for="license">license</label>
+      </div>
+      <div class="input-field form-group">
+        <input class="input_fields form-control" id="city" type="text">
+        <label class="active" for="city">City/District/Town</label>
+      </div>
+      <div class="input-field form-group">
+        <input class="input_fields form-control" id="postal_code" type="text">
+        <label class="active" for="pin_code">Pin Code</label>
+      </div>
+      <div class="input-field form-group">
+        <input class="input_fields form-control" id="state" type="text">
+        <label class="active" for="State">State</label>
+      </div>
+    </form>
+    <!-- You could add a fallback address gathering form here -->
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCH8o4TwEcdOVGYg6hQAfCws8V-J-z7NEk"></script>
+  <script src="main.js"></script>
+
+</div>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Ph-no*" value="" />
+                                        </div>
+                                         <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="password*" value="" />
+                                        </div>
+
+                                        <input type="submit" class="btnRegister"  value="Register"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+
+</section>
+
+
+</body>
+
+</html>

@@ -1,6 +1,10 @@
 <!DOCTYPE html>
+{% extends "base.html" %}
+
 <html lang="en">
 <head>
+
+  {% block extra_head %}
     <style>
         .errorbox{
             border-radius: 20px;
@@ -16,7 +20,7 @@
 
         li{
             list-style: none;
-            display: inline;: 
+            display: inline;
         }
 
 
@@ -43,15 +47,28 @@
         table{
             column-gap: 50px;
         }
-        
+
+
     </style>
     <meta charset="UTF-8">
     <title>Login Form</title>
+  {% endblock %}
 </head>
+
 <body>
+{% block body %}
+<section id="intro">
+
 <center>
-<h2>Login</h2>
-<form method="post" action="/accounts/login/">
+
+<div class="row">
+  <div class="span12">
+    <div id="slider_holder">
+      <div id="sequence">
+<div class="container main-login main-center">
+<form method="post" action="/accounts/login/" class="form">
+
+  <!--
 	{% csrf_token %}
     {% if error %}
         <div class="errorbox">
@@ -60,25 +77,56 @@
             </p>
         </div>
     {% endif %}
+  -->
+  <h2>Login</h2>
+<hr>
+    {% if error %}<div style="border:1px solid red; background:maroon; color:white; width:150px; height:25px; padding:5px; border-radius:5px;">Invalid Credentials</div>{% endif %}
 	<table>
         <tr>
-                {{ form }}
+          <td>Who are you:</td>
+          <td>{{ form.Who_are_you.0 }}</td>
         </tr>
-        <tr><td></td></tr>
-        <tr><td></td></tr>
         <tr>
-            <td>
-            </td>
-            <td>
-                <button>Submit Form</button>
-            </td>
+          <td></td>
+          <td>{{ form.Who_are_you.1 }}</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>{{ form.Who_are_you.2 }}</td>
+        </tr>
+        <tr>
+
+        </tr>
+        <tr>
+          <td id="id_username">Your username:</td><td>{{form.username}}</td>
+        </tr>
+        <tr>
+
+        </tr>
+        <tr>
+            <td id="id_password">Password:</td><td>{{form.password}}</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td><button>Submit Form</button></td>
         </tr>
     </table><br>
     <div class="fpass">
+        <a href="/accounts/register">Register!</a>&nbsp;&nbsp;
         <a href="/accounts/forgot_password">Forgot password?</a>
     </div>
 
 </form>
+</div>
+</div>
+</div>
+</div>
+</div>
 </center>
+
+{% endblock %}
+</section>
 </body>
+
+
 </html>

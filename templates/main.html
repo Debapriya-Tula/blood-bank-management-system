@@ -35,17 +35,17 @@
       <div class="navbar-inner">
         <div class="container">
           <!-- logo -->
-          <a class="brand logo" href="index.html"><img src="{% static "assets/img/logo.png" %}"  width="149" height="20" alt=""></a>
+          <a class="brand logo" href="main.html"><img src="{% static "assets/img/logo.png" %}"  width="149" height="20" alt=""></a>
           <!-- end logo -->
           <!-- top menu -->
           <div class="navigation">
             <nav>
               <ul class="nav topnav">
                 <li class="dropdown active">
-                  <a href="index.html">Home</a>
+                  <a href="main.html">Home</a>
                 </li>
                 <li class="dropdown">
-                  <a href="#">Features</a>
+<!--                  <a href="#">Features</a>-->
                   <ul class="dropdown-menu">
 <!--                    <li><a href="overview.html">Overview</a></li>
                     <li><a href="scaffolding.html">Scaffolding</a></li>
@@ -79,16 +79,10 @@
                     </ul>
                 </li>
                 <li class="dropdown">
-                  <a href="#">Blog</a>
-                  <ul class="dropdown-menu">
-                    <li><a href="blog_left_sidebar.html">Blog left sidebar</a></li>
-                    <li><a href="blog_right_sidebar.html">Blog right sidebar</a></li>
-                    <li><a href="post_left_sidebar.html">Post left sidebar</a></li>
-                    <li><a href="post_right_sidebar.html">Post right sidebar</a></li>
-                  </ul>
+                  <a href="/chat">Ask us</a>
                 </li>
                 <li>
-                  <a href="contact.html">Contact</a>
+                  <a href="#ad">Contact</a>
                 </li>
               </ul>
             </nav>
@@ -125,7 +119,7 @@
                       <p>
                           Some text
                       </p>
-                      <a class="btn btn-success" href="{% if hospital %}/transaction_page/{% else %}/accounts/login/{% endif %}">Proceed further &raquo;</a>
+                      <a class="btn btn-success" href="{% if hospital %}/transaction_page/?togo=hospital{% else %}/accounts/login/?topg=hospital{% endif %}">Proceed further &raquo;</a>
                     </div>
                     <img class="slider_img animate-in" src="{% static "assets/img/slides/sequence/img-1.png"  %}" alt="">
                   </li>
@@ -138,7 +132,7 @@
                       <p>
                           Some text
                         </p>
-                      <a class="btn btn-success" href="{% if donor %}/transaction_page/{% else %}/accounts/login/{% endif %}">Donate here&raquo;</a>
+                      <a class="btn btn-success" href="{% if donor %}/transaction_page/?togo=donor{% else %}/accounts/login/?topg=donor{% endif %}">Donate here&raquo;</a>
                     </div>
                     <img class="slider_img" src="{% static "assets/img/slides/sequence/img-2.png" %}" alt="">
                   </li>
@@ -150,7 +144,7 @@
                       <h3>Latest technology</h3>
                       <p>
                       </p>
-                      <a class="btn btn-success" href="{% if userp %}/transaction_page/{% else %}/accounts/login/{% endif %}">Get it from here &raquo;</a>
+                      <a class="btn btn-success" href="{% if userp %}/patient_portal/patient{% else %}/accounts/login/?topg=patient{% endif %}">Get it from here &raquo;</a>
                     </div>
                     <img class="slider_img" src="{% static "assets/img/slides/sequence/img-3.png" %}" alt="">
                   </li>
@@ -163,6 +157,22 @@
       </div>
     </div>
   </section>
+  <section>
+    <center>
+    <form action="http://maps.google.com/maps" method="get" target="_blank" id="findus">
+      <center><h2>Get Directions to our inventory</h2></center>
+       <label for="saddr">Enter your location</label>
+       <input type="text" name="saddr" placeholder="enter your location"/>
+       <input type="hidden" name="daddr" value="IIIT,sricty,chittor,andhrapradesh" />
+       <br>
+       <input type="submit" class="btn btn-success" value="directions" />
+    </form>
+  </center>
+
+
+  </section>
+
+
 
   <!-- Footer
  ================================================== -->
@@ -185,10 +195,10 @@
           <div class="widget">
             <h5>Recent blog posts</h5>
             <ul class="regular">
-              <li><a href="#">Lorem ipsum dolor sit amet</a></li>
-              <li><a href="#">Mea malis nominavi insolens ut</a></li>
-              <li><a href="#">Minim timeam has no aperiri sanctus ei mea per pertinax</a></li>
-              <li><a href="#">Te malorum dignissim eos quod sensibus</a></li>
+              <li><a href="#">Best in service delivery</a></li>
+              <li><a href="#">Fastest in terms of addressing cases</a></li>
+              <li><a href="#">Recognised by WHO as one of the best distributors</a></li>
+              <li><a href="#">Safest and most viable state of the art techniques</a></li>
             </ul>
           </div>
         </div>
@@ -200,10 +210,10 @@
 						</a>
             <!-- end logo -->
             <address>
-							<strong>Registered Companyname, Inc.</strong><br>
-							 8895 Somename Ave, Suite 600<br>
-							 San Francisco, CA 94107<br>
-							<abbr title="Phone">P:</abbr> (123) 456-7890
+							<strong>Debapriya.</strong><br>
+							 The Sri City blood bank<br>
+							 IIIT Sricity, Sri city, Andhra<br>
+							<abbr title="Phone" id="#ad">P:</abbr> 7002888905
 						</address>
           </div>
         </div>
@@ -214,7 +224,7 @@
         <div class="row">
           <div class="span6">
             <p>
-              &copy; Serenity - All right reserved
+              &copy; IIIT Sri-city - All right reserved
             </p>
           </div>
           <div class="span6">

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+        
+#Div2,#Div3
+{
+ display: none;
+}
+</style>
+<script>
+function divfunction()
+{
+    var x = document.getElementById("donorradio").checked;
+    var y = document.getElementById("userradio").checked;
+    var z = document.getElementById("hosradio").checked;
+    var xd="<table><tr><td>Enter your First Name:</td> <td><input type='text' name='fname'/></td></tr><tr><td>Enter your Last Name:</td><td><input type='text' name='lname'/></td></tr><tr><td>Enter your date of birth:</td><td><input type='date' name='dob'/></td></tr>><tr><td>Your Gender:</td> <td><select name='gender'><option value='male'>Male</option><option value='female'>Female</option><option value='other'>Other</option></select></td></tr><tr><td>Your Blood Group:</td> <td><select name='bgroup'><option value='op'>O '+ve'</option><option value='on'>O '-ve'</option><option value='ap'>A '+ve'</option><option value='an'>A '-ve'</option><option value='bp'>B '+ve'</option><option value='bn'>B '-ve'</option><option value='abp'>AB '+ve'</option><option value='abn'>AB '-ve'</option></select></td></tr><tr><td>Enter your Height:</td><td><input type='text' name='height'/></td></tr><tr><td>Enter your Weight:</td><td><input type='text' name='weight'/></td></tr><tr><td>Your Phone Number:</td> <td><input type='number' name='phno'/></td></tr><tr><td></td><td><button>Submit Form</button></td></tr><!--<tr><td>Register With Facebook</td></tr></table>";
+    var yd="<table><tr><td>Enter your First Name:</td> <td><input type='text' name='fname'/></td></tr><tr><td>Enter your Last Name:</td><td><input type='text' name='lname'/></td></tr><tr><td>Enter your date of birth:</td><td><input type='date' name='dob'/></td></tr><tr><td>Your Gender:</td> <td><select name='gender'><option value='male'>Male</option><option value='female'>Female</option><option value='other'>Other</option></select></td></tr><tr><td>Your Blood Group:</td> <td><select name='bgroup'><option value='op'>O '+ve'</option><option value='on'>O '-ve'</option><option value='ap'>A '+ve'</option><option value='an'>A '-ve'</option><option value='bp'>B '+ve'</option><option value='bn'>B '-ve'</option><option value='abp'>AB '+ve'</option><option value='abn'>AB '-ve'</option></select></td></tr><tr><td>Your Phone Number:</td> <td><input type='number' name='phno'/></td></tr><tr><td><button>Submit Form</button></td></tr></table>";
+    var zd="<table><tr><td>Enter hospital's license key:</td><td><input type='text' name='license'/></td></tr><tr><td></td><td><button>Submit Form</button></td></tr></table>";
+    switch(true)
+    {
+        case x:
+            document.getElementById("test").innerHTML = xd;
+            break;
+        case y:
+            document.getElementById("test").innerHTML = yd;
+        
+            break;
+        case z:
+            document.getElementById("test").innerHTML = zd;
+            break;
+    }
+}
+</script>
+ <meta charset="utf-8">
+  <title>BLOOD BANK</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <!-- styles -->
+  
+  
+ 
+
+
+<!------ Include the above in your HEAD tag ---------->
+
+
+</head>
+<body>
+  <header>
+
+    <!-- Navbar
+    ================================================== -->
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <!-- logo -->
+          <a class="brand logo" href="index.html"><img src="assets/img/logo.png"  width="129" height="10" alt=""></a>
+          <!-- end logo -->
+          <!-- top menu -->
+          <div class="navigation">
+            <nav>
+              <ul class="nav topnav">
+                <li class="dropdown active">
+                  <a href="index.html">Home</a>
+                </li>
+                <li class="dropdown">
+                  <a href="#">Login or signup</a>
+                  <ul class="dropdown-menu">
+                    <li><a href="registration.html">donor/user</a></li>
+                    <li><a href="scaffolding.html">Hospital</a></li>
+                      
+                  </ul>
+                </li>
+                <li class="dropdown">
+                  <a href="#">Pages</a>
+                  <ul class="dropdown-menu">
+                <li><a onclick="document.getElementById('id01').style.display='block'" style="width:auto;">About us</a></li>
+                    <li><a href="pricingtable.html">Pricing table</a></li>
+                    <li><a href="fullwidth.html">Fullwidth</a></li>
+                    <li><a href="404.html">404</a></li>
+                  </ul>
+                </li>
+                <li class="dropdown">
+                  <a href="#">Blog</a>
+                  <ul class="dropdown-menu">
+                    <li><a href="blog_left_sidebar.html">Blog left sidebar</a></li>
+                    <li><a href="blog_right_sidebar.html">Blog right sidebar</a></li>
+                    <li><a href="post_left_sidebar.html">Post left sidebar</a></li>
+                    <li><a href="post_right_sidebar.html">Post right sidebar</a></li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="contact.html">Contact</a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+          <!-- end menu -->
+        </div>
+      </div>
+    </div>
+  </header>
+<section id="intro">
+
+<div class="container register">
+  <div class="row">
+    <div class="col-md-3 register-left"></div>
+  		<div class="col-md-9 register-right">
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <h3 class="register-heading">REGISTRATION</h3>
+            <div class="row register-form">
+              <div class="col-md-6">
+                <div class="container">
+                  <div id="map">
+                  </div>
+                  <button id="showMe" class="btn">Use My Location</button>
+                  <form id="shippingAddress">
+                    <div id="locationList"></div>
+                      <br>
+                      <textarea class="input_fields form-control" id="address" type="text"></textarea>
+                      <label class="active" for="address">Address (Area and Street)</label>
+                    </div>
+                    <div class="input-field form-group">
+                      <input class="input_fields form-control" id="city" type="text">
+                      <label class="active" for="city">City/District/Town</label>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="input-field form-group">
+                      <input class="input_fields form-control" id="postal_code" type="text">
+                      <label class="active" for="pin_code">Pin Code</label>
+                    </div>
+                    <div class="input-field form-group">
+                      <input class="input_fields form-control" id="state" type="text">
+                      <label class="active" for="State">State</label>
+                    </div>
+                    Enter your name:
+                              <input type="text" name="name"/><br>
+                    Enter your email:
+                    <input type="email" name="email"/><br>
+                    Enter your User Name:
+                    <input type="text" name="uname"/><br>
+                    Enter your password:
+                    <input type="password" name="passwd"/><br>
+                    Who are you?<br>
+                    <input type="radio" name="category" id="donorradio" value="donor" onclick="divfunction()">Donor&nbsp;
+                    <input type="radio" name="category" id="hosradio" value="hospital" onclick="divfunction()">Hospital&nbsp;
+                    <input type="radio" name="category" id="userradio" value="users" onclick="divfunction()">User&nbsp;
+                  <!--        </tr>
+                              <td>
+                                  <a href="{% url 'social:begin' 'facebook' %}">Signup with Facebook</a>
+                              </td>
+                          </tr>-->
+                    <div id="test"> </div>
+                  </form>
+                </div>
+                <!--  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>-->
+                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCH8o4TwEcdOVGYg6hQAfCws8V-J-z7NEk"></script>
+                <script src="js/main.js"></script>
+              </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</body>
+</html>

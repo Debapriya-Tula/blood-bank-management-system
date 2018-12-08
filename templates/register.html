@@ -1,66 +1,71 @@
 <!DOCTYPE html>
+{% extends "base.html" %}
+
 <html lang="en">
     {% load static %}
 <head>
     <meta charset="UTF-8">
-    <title>Regstration form</title>
-    <style>
-        body
-        {
-            background-image: url("http://i.huffpost.com/gen/3158186/images/o-BLOOD-PRICK-facebook.jpg");
-            background-repeat: no-repeat;
-            background-size: cover;
-            left: 0%;
-            top: 0%;
-        }
-        table
-        {
-            text-align: center;
-            position: middle;
-        }
-    </style>
 </head>
-<body >
-<h2>Regitser yourself here</h2>
+
+<body style="font-size:16px">
+
+  {% block body %}
+
+  <section id="intro">
+<div class="container">
+
 <form method="post" action="">
 	{% csrf_token %}
-    <input type="hidden" id="csrf_token" value='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>    
+    <input type="hidden" id="csrf_token" value='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
     <center>
+<h2>Register</h2>
+{% if eunm %}
+<div style="border:1px solid red; background:maroon; color:white; width:150px; height:25px; padding:5px; border-radius:5px;">Username already exists</div>
+{% endif %}
+{% if eem %}
+<div style="border:1px solid red; background:maroon; color:white; width:250px; height:25px; padding:5px; border-radius:5px;">Email already exists. Try <a href = "/accounts/login">logging in</a>.</div>
+{% endif %}
+<hr>
 	<table>
+      <tr>
+        <td>
+            {% load socialaccount %}
+            <a href="{% provider_login_url 'facebook' method='oauth2' %}">Facebook Signup</a>
+        </td>
+      </tr>
         <tr>
-            <td>Enter your email:</td>
-            <td><input type="email" name="email"/></td>
+            <td  style='color:black;'>Enter your email:</td>
+            <td  style='color:black;'><input type="email" name="email" required/></td>
         </tr>
         <tr>
-            <td>Enter your User Name:</td>
-            <td><input type="text" name="uname"/></td>
+            <td  style='color:black;'>Enter your User Name:</td>
+            <td  style='color:black;'><input type="text" name="uname" required/></td>
         </tr>
         <tr>
-            <td>Enter your password:</td>
-            <td><input type="password" name="passwd"/></td>
+            <td  style='color:black;'>Enter your password:</td>
+            <td  style='color:black;'><input type="password" name="passwd" required/></td>
         </tr>
         <tr>
-            <td>
+            <td  style='color:black;'>
                 Who are you?
             </td>
-            <td>
-                <input type="radio" name="category" id="donorradio" value="donor" onclick="divfunction()">Donor  
-                <input type="radio" name="category" id="hosradio" value="hospital" onclick="divfunction()">Hospital  
-                <input type="radio" name="category" id="userradio" value="users" onclick="divfunction()">User    
+            <td  style='color:black;'>
+                <input type="radio" name="category" id="donorradio" value="donor" onclick="divfunction()">Donor&nbsp;
+                <input type="radio" name="category" id="hosradio" value="hospital" onclick="divfunction()">Hospital&nbsp;
+                <input type="radio" name="category" id="userradio" value="users" onclick="divfunction()">Patient
             </td>
         </tr>
-<!--        </tr>
-            <td>
-                <a href="{% url 'social:begin' 'facebook' %}">Signup with Facebook</a>
-            </td>
-        </tr>-->
+
 </table>
 <div id="test">
 
 </div>
+
 </form>
-</center>
-</body>
+	</div>
+</section>
+
+
 <script>
 //type="text/javascript" src="{% static 'register.js' %}">
 function divfunction()
@@ -68,9 +73,92 @@ function divfunction()
     var x = document.getElementById("donorradio").checked;
     var y = document.getElementById("userradio").checked;
     var z = document.getElementById("hosradio").checked;
-    var xd="<table><tr><td>Enter your First Name:</td> <td><input type='text' name='fname'/></td></tr><tr><td>Enter your Last Name:</td><td><input type='text' name='lname'/></td></tr><tr><td>Enter your date of birth:</td><td><input type='date' name='dob'/></td></tr><tr><td>Enter your address line1:</td>\<td><input type='text' name='line1'/></td></tr><tr><td>Enter your address line2:</td><td><input type='text' name='line2'/></td></tr><tr><td>Enter your City:</td><td><input type='text' name='city'/></td></tr><tr><td>State:</td> <td><input type='text' name='state'/></td></tr><tr><td>Enter your postalcode:</td><td><input type='text' name='postalcode'/></td></tr><tr><td>Enter your country:</td><td><input type='text' name='country'/></td></tr><tr><td>Your Gender:</td> <td><select name='gender'><option value='male'>Male</option><option value='female'>Female</option><option value='other'>Other</option></select></td></tr><tr><td>Your Blood Group:</td> <td><select name='bgroup'><option value='op'>O '+ve'</option><option value='on'>O '-ve'</option><option value='ap'>A '+ve'</option><option value='an'>A '-ve'</option><option value='bp'>B '+ve'</option><option value='bn'>B '-ve'</option><option value='abp'>AB '+ve'</option><option value='abn'>AB '-ve'</option></select></td></tr><tr><td>Enter your Height:</td><td><input type='text' name='height'/></td></tr><tr><td>Enter your Weight:</td><td><input type='text' name='weight'/></td></tr><tr><td>Your Phone Number:</td> <td><input type='number' name='phno'/></td></tr><tr><td></td><td><button>Submit Form</button></td></tr><tr><td>Register With Facebook</td><td><a href='{% url 'social:begin' 'facebook' %}'>Register</a></td></tr></table>";
-    var yd="<table><tr><td>Enter your First Name:</td> <td><input type='text' name='fname'/></td></tr><tr><td>Enter your Last Name:</td><td><input type='text' name='lname'/></td></tr><tr><td>Enter your date of birth:</td><td><input type='date' name='dob'/></td></tr><tr><td>Your Gender:</td> <td><select name='gender'><option value='male'>Male</option><option value='female'>Female</option><option value='other'>Other</option></select></td></tr><tr><td>Your Blood Group:</td> <td><select name='bgroup'><option value='op'>O '+ve'</option><option value='on'>O '-ve'</option><option value='ap'>A '+ve'</option><option value='an'>A '-ve'</option><option value='bp'>B '+ve'</option><option value='bn'>B '-ve'</option><option value='abp'>AB '+ve'</option><option value='abn'>AB '-ve'</option></select></td></tr><tr><td>Your Phone Number:</td> <td><input type='number' name='phno'/></td></tr><tr><td><button>Submit Form</button></td></tr></table>";
-    var zd="<table><tr><td>Enter Hospital's Name:</td> <td><input type='text' name='name'/></td></tr><tr><td>Enter hospital's address line1:</td>\<td><input type='text' name='line1'/></td></tr><tr><td>Enter hospital's address line2:</td><td><input type='text' name='line2'/></td></tr><tr><td>Enter city where hospital is in:</td><td><input type='text' name='city'/></td></tr><tr><td>Enter Zipcode for hospital location:</td><td><input type='text' name='postalcode'/></td></tr><tr><td>Enter hospital's license key:</td><td><input type='text' name='license'/></td></tr><tr><td></td><td><button>Submit Form</button></td></tr></table>";
+
+    var xd= "<table>\
+      <tr>\
+        <td  style='color:black;'>Enter your First Name:</td> \
+        <td  style='color:black;'><input type='text' name='fname' required/></td>\
+      </tr>\
+        <tr>\
+          <td  style='color:black;'>Enter your Last Name:</td>\
+          <td  style='color:black;'><input type='text' name='lname' required/></td>\
+        </tr>\
+        <tr>\
+          <td  style='color:black;'>Enter your date of birth:</td>\
+          <td  style='color:black;'><input type='date' name='dob' required/></td>\
+          </tr>\
+          <tr>\
+            <td  style='color:black;'>Enter your address line1:</td>\
+            <td  style='color:black;'><input type='text' name='line1' required/></td>\
+          </tr>\
+          <tr>\
+            <td  style='color:black;'>Enter your address line2:</td>\
+            <td  style='color:black;'><input type='text' name='line2' required/></td>\
+          </tr>\
+          <tr>\
+            <td  style='color:black;'>Enter your City:</td>\
+            <td  style='color:black;'><input type='text' name='city' required/></td>\
+          </tr>\
+          <tr>\
+            <td  style='color:black;'>State:</td> \
+            <td  style='color:black;'><input type='text' name='state' required/></td>\
+          </tr>\
+          <tr>\
+            <td  style='color:black;'>Enter your postalcode:</td>\
+            <td  style='color:black;'><input type='text' name='postalcode' required/></td>\
+          </tr>\
+          <tr>\
+            <td  style='color:black;'>Enter your country:</td>\
+            <td  style='color:black;'><input type='text' name='country' required/></td>\
+          </tr>\
+          <tr>\
+            <td  style='color:black;'>Your Gender:</td> \
+            <td  style='color:black;'>\
+            <select name='gender'>\
+              <option value='male'>Male</option>\
+              <option value='female'>Female</option>\
+              <option value='other'>Other</option>\
+            </select>\
+            </td>\
+          </tr>\
+          <tr>\
+            <td  style='color:black;'>Your Blood Group:</td> \
+            <td  style='color:black;'>\
+            <select name='bgroup'>\
+              <option value='op'>O '+ve'</option>\
+              <option value='on'>O '-ve'</option>\
+              <option value='ap'>A '+ve'</option>\
+              <option value='an'>A '-ve'</option>\
+              <option value='bp'>B '+ve'</option>\
+              <option value='bn'>B '-ve'</option>\
+              <option value='abp'>AB '+ve'</option>\
+              <option value='abn'>AB '-ve'</option>\
+            </select>\
+            </td>\
+          </tr>\
+          <tr>\
+            <td  style='color:black;'>Enter your Height:</td>\
+            <td  style='color:black;'><input type='text' name='height' required/></td>\
+          </tr>\
+          <tr>\
+            <td  style='color:black;'>Enter your Weight:</td>\
+            <td  style='color:black;'><input type='text' name='weight' required/></td>\
+          </tr>\
+          <tr>\
+            <td  style='color:black;'>Your Phone Number:</td>\
+            <td  style='color:black;'><input type='number' name='phno' required/></td>\
+          </tr>\
+          <tr>\
+            <td  style='color:black;'></td>\
+            <td  style='color:black;'><button>Submit Form</button></td>\
+          </tr>\
+          <tr>\
+          </tr>\
+      </table>"
+
+
+    var yd="<table><tr><td  style='color:black;'>Enter your First Name:</td> <td  style='color:black;'><input type='text' name='fname' required/></td></tr><tr><td  style='color:black;'>Enter your Last Name:</td><td  style='color:black;'><input type='text' name='lname' required/></td></tr><tr><td  style='color:black;'>Enter your date of birth:</td><td  style='color:black;'><input type='date' name='dob' required/></td></tr><tr><td  style='color:black;'>Your Gender:</td> <td  style='color:black;'><select name='gender'><option value='male'>Male</option><option value='female'>Female</option><option value='other'>Other</option></select></td></tr><tr><td  style='color:black;'>Your Blood Group:</td> <td  style='color:black;'><select name='bgroup'><option value='op'>O '+ve'</option><option value='on'>O '-ve'</option><option value='ap'>A '+ve'</option><option value='an'>A '-ve'</option><option value='bp'>B '+ve'</option><option value='bn'>B '-ve'</option><option value='abp'>AB '+ve'</option><option value='abn'>AB '-ve'</option></select></td></tr><tr><td  style='color:black;'>Your Phone Number:</td> <td  style='color:black;'><input type='number' name='phno' required/></td></tr><tr><td  style='color:black;'><button>Submit Form</button></td></tr></table>";
+    var zd="<table><tr><td  style='color:black;'>Enter hospital's address line1:</td>\<td  style='color:black;'><input type='text' name='line1' required/></td></tr><tr><td  style='color:black;'>Enter hospital's address line2:</td><td  style='color:black;'><input type='text' name='line2' required/></td></tr><tr><td  style='color:black;'>Enter city where hospital is in:</td><td  style='color:black;'><input type='text' name='city' required/></td></tr><tr><td  style='color:black;'>Enter Zipcode for hospital location:</td><td  style='color:black;'><input type='text' name='postalcode' required/></td></tr><tr><td  style='color:black;'>Enter hospital's license key:</td><td  style='color:black;'><input type='text' name='license' required/></td></tr><tr><td  style='color:black;'></td><td  style='color:black;'><button>Submit Form</button></td></tr></table>";
     switch(true)
     {
         case x:
@@ -85,4 +173,8 @@ function divfunction()
     }
 }
 </script>
+</section>
+{% endblock %}
+
+</body>
 </html>
