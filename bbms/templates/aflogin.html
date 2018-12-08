@@ -1,0 +1,18 @@
+<html>
+    <title>Welcome</title>
+    <body>
+        {% if user  %}
+        <p>Hello {{ user }} is the user logged in</p><br>
+        <a href="/accounts/logout?ctg=user">Log out</a>
+        {% endif %}
+        {% if donor %}
+        <p>Hello {{ donor }} is the donor in</p><br>
+        <a href="/accounts/logout?ctg=donor">Log out</a>
+        {% endif %}
+        {% if hospital %}
+        <p>Hello {{ hospital }} is the hospital logged in</p><br>
+        <a href="/accounts/logout?ctg=hospital">Log out</a>
+        {% endif %}
+        <p>Welcome back</p>
+    </body>
+</html>

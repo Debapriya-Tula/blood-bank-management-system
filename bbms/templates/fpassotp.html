@@ -1,0 +1,30 @@
+<html>
+	<head>
+		<title>forgot password</title>
+	</head>
+	<body>
+		Hello {{ uname }} {{ catg }}
+		<form method="POST" action="verify/">
+			<table>
+				<input type="hidden" name="uname" value="{{ username }}"/>
+				<input type="hidden" name="catg" value="{{ catg }}"/>
+				<tr>
+					<td>
+						Enter the OTP sent to your mail id:
+					</td>
+					<td>
+						<input type="number" name="otp"/>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Submit
+					</td>
+					<td>
+							<input type="submit" value="Submit"/>
+						</td>
+					</tr>
+			</table>
+		</form>
+	</body>
+</html>
