@@ -1,11 +1,12 @@
 from django.urls import path,include
 from . import views
 
+app_name = 'accounts'
+
 urlpatterns = [
 	path(r'register/', views.register, name='register'),
 	path(r'confirm_register/', views.confirm_register, name='confirm_register'),
 	path(r'login/', views.login, name='login'),
-	path(r'oauth/', include('social_django.urls', namespace='social')),
 	path(r'aflogin/', views.aflogin, name='aflogin'),
 	path(r'logout/', views.logout, name='aflogin'),
 	path(r'forgot_password/', views.fpassinit, name='fpassinit'),

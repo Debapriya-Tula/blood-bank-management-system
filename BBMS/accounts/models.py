@@ -5,19 +5,19 @@ class veremail(models.Model):
 	uname = models.CharField(max_length=50)
 
 blood_grp_choices = (
-					('O_pos','O+'),
-					('O_neg','O-'),
-					('A_pos','A+'),
-					('A_neg','A-'),
-					('B_pos','B+'),
-					('B_neg','B-'),
-					('AB_pos','AB+'),
-					('AB_neg','AB-'),
+					('O+','O+'),
+					('O-','O-'),
+					('A+','A+'),
+					('A-','A-'),
+					('B+','B+'),
+					('B-','B-'),
+					('AB+','AB+'),
+					('AB-','AB-'),
 )
 gender_choices = (
-					('Male','M'),
-					('Female','F'),
-					('Other','T'),
+					('M','Male'),
+					('F','Female'),
+					('O','Other'),
 )
 
 class Patient_reg(models.Model):
@@ -29,7 +29,7 @@ class Patient_reg(models.Model):
 	email_verified = models.IntegerField(null=True)
 
 	def __str__(self):
-		return self.user.username
+		return self.username
 
 class Patient_details(models.Model):
 	userp = models.ForeignKey(Patient_reg,on_delete = models.CASCADE)
@@ -49,7 +49,7 @@ class Donor_reg(models.Model):
 	email_verified = models.IntegerField(null=True)
 
 	def __str__(self):
-		return self.user.username
+		return self.username
 
 class Donor_details(models.Model):
 	userd = models.ForeignKey(Donor_reg,on_delete = models.CASCADE)
@@ -70,18 +70,15 @@ class Hospital_reg(models.Model):
 	email = models.EmailField()
 	password = models.CharField(max_length = 30)
 	hospital_name = models.CharField(max_length = 100)
-
 	ad_line1 = models.CharField(max_length=150)
 	ad_line2 = models.CharField(max_length=150)
 	city = models.CharField(max_length = 50)
 	pincode = models.CharField(max_length = 6)
 	state = models.CharField(max_length = 20)
 	license = models.CharField(max_length = 10)
+	email_verified = models.IntegerField(null=True)
+
+#	ph_no = models.IntegerField()
 
 	def __str__(self):
-		return self.user.username
-
-
-
-
-
+		return self.username

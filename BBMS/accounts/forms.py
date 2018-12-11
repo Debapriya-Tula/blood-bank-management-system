@@ -1,10 +1,10 @@
 from django import forms
 
 class loginform(forms.Form):
-    CHOICES=[('donor','donor'),
-        ('hospital','hospital'),
-        ('user','user')]
-    Who_are_you  = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect())
+    CHOICES=[('donor','Donor'),
+        ('hospital','Hospital'),
+        ('user','Patient')]
+    Who_are_you  = forms.ChoiceField(choices=CHOICES)
     username = forms.CharField(label='Your User Name', max_length=100)
     password = forms.CharField(label='Your Password', max_length=100, widget=forms.PasswordInput())
 
