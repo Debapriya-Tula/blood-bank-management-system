@@ -1,0 +1,10 @@
+{% extends 'InventoryManagement/base.html' %}
+{% block content %}
+<form method="POST" action="{% url 'final_hospital' %}">
+			{% csrf_token %}
+	<div class="form-group">	
+		<button class="btn btn-outline-info" type="submit">Proceed To Finalize</button>
+		<a class="btn btn-outline-info" href="{% url 'home' %}">Home</a>
+	</div>
+</form>
+{% endblock content %}

@@ -1,0 +1,30 @@
+{% extends "InventoryManagement/base.html" %}
+{% block content %}
+
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<th>User</th>
+			<th>Blood Type</th>
+			<th>Donation/Sell</th>
+			<th>Donation Status</th>
+		</tr>
+	</thead>
+
+	<tbody>
+		
+		{% for item1 in items1 %}
+			<tr>
+				<td>{{ item1.user }}</td>
+				<td>{{ item1.blood_group }}</td>
+				<td>{{ item1.don_or_sell }}</td>
+				<td><a class= "btn btn-primary" href = {% url 'authentication_donor' item1.id %}>Authenticate order</a></td>
+			</tr>
+
+
+		{% endfor %}
+
+	</tbody>
+
+</table>	
+{% endblock content %}
