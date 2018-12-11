@@ -8,7 +8,8 @@ urlpatterns = [
 	path('', views.display_home, name='inv-home'),
 	path('plasma/', views.display_Plasma, name='inv-Plasma'),
 	path('platelet/', views.display_Platelets, name='inv-Platelet'),
-	path('addstock/', views.add_stock, name='inv-add'),
+	path('frozencryo/', views.display_Frozen, name='inv-frozen'),
+	path('addstock/', views.addstock, name='inv-add'),
 	path('deletestock/', views.delete_stock, name='inv-delete'),
 	path('unit_account/', views.display_unitexpiration, name='inv-unit'),
 ]

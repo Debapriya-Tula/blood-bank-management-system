@@ -7,7 +7,8 @@
 	<a href="{% url 'inv-RBC' %}" class="btn btn-primary btn-md" role="button">RBCL</a>
 	<a href="{% url 'inv-Plasma' %}" class="btn btn-primary btn-md" role="button">Plasma</a>
 	<a href="{% url 'inv-Platelet' %}" class="btn btn-primary btn-md" role="button">Platelets</a>
-
+	<a href="{% url 'inv-frozen' %}" class="btn btn-primary btn-md" role="button">Frozen Blood</a>
+	
 	<a href="{% url 'inv-add' %}" class="btn btn-success" role="button">Add Stock</a>
 	<a href="{% url 'inv-delete' %}" class="btn btn-danger" role="button">Delete Stock</a>
 	<a href="{% url 'inv-unit' %}" class="btn btn-danger" role="button">Unit Account</a>
@@ -36,7 +37,11 @@
 					<td>ALL TYPES</td>
 				{% endif %}
 				<td>{{ item1.current_inv }}</td>
-				<td>{{ item1.price }}</td>
+				{% if item1.price %}
+					<td>{{ item1.price }}</td>
+				{% else %}
+					<td>Not For Sale</td>
+				{% endif %}
 			</tr>
 
 

@@ -1,8 +1,9 @@
 {% extends 'InventoryManagement/base.html' %}
-
+{% block content %}
 <form method="POST" action="{% url 'authentication' %}">
 			{% csrf_token %}
 		<div class="form-group" >
-				<button class="btn btn-outline-info" type="submit">Proceed to Checkout</button>
+				<a class="btn btn-default" href="{% url 'home' %}">Go to Home</a>
 		</div>
 </form>
+{% endblock content %}

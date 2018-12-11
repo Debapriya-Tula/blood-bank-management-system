@@ -72,6 +72,7 @@ var stripe = Stripe('pk_test_VTVXKFq9QD0ifGJWU30zd4Kk');
     hiddenInput.setAttribute('type', 'hidden');
     hiddenInput.setAttribute('name', 'stripeToken');
     hiddenInput.setAttribute('value', token.id);
+    document.getElementById('token_val').value = token.id;
     form.appendChild(hiddenInput);
 
     // Submit the form

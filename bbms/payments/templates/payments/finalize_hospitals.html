@@ -13,7 +13,6 @@
 			<th>Component</th>
 			<th>Price</th>
 			<th>Total</th>
-			
 		</tr>
 	</thead>
 
@@ -26,21 +25,18 @@
 				<td>{{ item1.component }}</td>
 				<td>{{ item1.price }}</td>
 				<td>{{ item1.total }}</td>
-				
 			</tr>
 			
 
 		{% endfor %}
-	
-	</tbody>
-
-</table>	
-
-
-<form method="POST" action="{% url 'checkout' %}">
+	<form method="POST" action="{% url 'checkout' %}">
 			{% csrf_token %}
 		<div class="form-group" >
 				<button class="btn btn-outline-info" type="submit">Proceed to Checkout</button>
 		</div>
 	</form>
+	</tbody>
+
+</table>	
+
 {% endblock content %}

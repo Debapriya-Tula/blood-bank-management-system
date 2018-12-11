@@ -20,6 +20,7 @@ class RBCL(models.Model):
 	donate_date=models.DateTimeField(default=timezone.now)
 	time_left = models.FloatField(default=1010)
 	expiry = models.IntegerField(default=1010)
+	available = models.BooleanField(default=True)
 	def __str__(self):
 		return "Blood Type : {0} Units : {1} Date : {2}".format(self.blood_type, self.units, self.donate_date)
 
@@ -35,6 +36,7 @@ class Plasma(models.Model):
 	donate_date=models.DateTimeField(default=timezone.now)
 	time_left = models.FloatField(default=100)
 	expiry = models.IntegerField(default=100)
+	available = models.BooleanField(default=True)
 	def __str__(self):
 		return "Blood Type : {0} Units : {1} Date : {2}".format(self.blood_type, self.units, self.donate_date)
 
@@ -44,6 +46,7 @@ class Platelet(models.Model):
 	donate_date=models.DateTimeField(default=timezone.now)
 	time_left = models.FloatField(default=120)
 	expiry = models.IntegerField(default=120)
+	available = models.BooleanField(default=True)
 	def __str__(self):
 		return "Units : {0} Date : {1}".format(self.units, self.donate_date)
 
@@ -62,6 +65,7 @@ class frozen_cryo(models.Model):
 	units=models.IntegerField(default=0)
 	donate_date=models.DateTimeField(default=timezone.now)
 	time_left = models.FloatField(default=0)
+	available = models.BooleanField(default=True)
 	def __str__(self):
 		return "Blood Type : {0} Units : {1} Date : {2}".format(self.blood_type, self.units, self.donate_date)
 

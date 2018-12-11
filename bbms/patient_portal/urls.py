@@ -2,7 +2,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('nearest/', views.nearest, name='nearest'),
+    path('home/', views.home, name='home'),
     path('patient/', views.patient, name='patient'),
 ]
 
