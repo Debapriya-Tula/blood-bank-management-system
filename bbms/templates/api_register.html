@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+
+<html lang="en">
+    {% load static %}
+<head>
+    <meta charset="UTF-8">
+</head>
+
+<body style="font-size:16px">
+
+  {% block body %}
+
+  <section id="intro">
+<div class="container" style="color:black;">
+
+<form method="post" action="" >
+	<h2>Sign up</h2>
+	  {% csrf_token %}
+	  {{ form.as_p }}
+	  <button type="submit">Sign up</button>
+  </form>
+	</div>
+</section>
+</section>
+{% endblock %}
+
+</body>
+</html>

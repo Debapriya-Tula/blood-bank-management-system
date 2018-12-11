@@ -1,90 +1,75 @@
 <!DOCTYPE html>
 {% extends "base.html" %}
-
 <html lang="en">
-<head>
-
-  {% block extra_head %}
-    <style>
-        .errorbox{
-            border-radius: 20px;
-            border: 2px solid red;
-            padding-left: 20px;
-            padding-bottom: 20px;
-            height: 30px;
-            width: 180px;
-            background-color: darksalmon;
-            color:maroon;
-            font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-        }
 
 
-    </style>
-    <meta charset="UTF-8">
-    <title>Login Form</title>
-  {% endblock %}
-</head>
+    <head>
+      <title>forgot password</title>
+
+    {% block extra_head %}
+    {% endblock %}
+    {% block style %}
+    {% endblock %}
+    {% block }
+      </head>
 
 <body>
-{% block body %}
-<section id="intro" >
-
-<center>
-
-<div class="row" >
-  <div class="span12" >
-    <div id="slider_holder">
-      <div id="sequence">
-<div class="container main-login main-center">
-<form method="post" action="/accounts/confirm_register/" class="form">
-
-	{% csrf_token %}
-    {% if error %}
-        <div class="errorbox">
-            <p>
-                {{ error }}
-            </p>
-        </div>
-    {% endif %}
-  <h2>OTP Confirmation</h2>
-<hr>
-    {% if error %}<div style="border:1px solid red; background:maroon; color:white; width:150px; height:25px; padding:5px; border-radius:5px;">Invalid Credentials</div>{% endif %}
-    {% if error %}
-    <div class="errorbox">
-        <p>
-            {{ error }}
-        </p>
-    </div>
+  {% block body %}
+  <section id="intro">
+    <div class="row">
+      <div class="span12">
+        <div id="slider_holder">
+          <div id="sequence">
+    <div class="container main-login main-center" style="margin-left: 20%; height:300px;">
+      {% if error %}
+      <center><div style="                background-color: salmon;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 14px;
+        margin: 4px 2px;
+        cursor: pointer;
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+">Please enter correct OTP.</div><br><br></center>
     {% endif %}
     <form method="post" action="/accounts/confirm_register/">
-        <input type="hidden" value="{{ uname }}" name="uname"/>
-        <input type="hidden" value="{{ catg }}" name="catg"/>
-        <table >
+      {% csrf_token %}
+    <input type="hidden" value="{{ uname }}" name="uname"/>
+    <input type="hidden" value="{{ catg }}" name="catg"/>
+    <center>Hello {{ uname }} .Enter OTP sent to your mail id:
+           <br><br>
+        <table>
             <tr>
-                <td>Hello {{ uname }}. Enter OTP sent to your mail id:</td>
-                <td><input type="number" name="code"/></td>
+              <td align="middle"><input type="number" class="w3-input"  name="code"/><br><br></td>
             </tr>
             <tr>
-                <td></td>
-                <td>
-                    <input type="submit" value="Submit"/>
-                </td>
+              <td align="middle"><input type="submit" style="
+                background-color: rgb(46, 46, 46);
+                border: none;
+                color: white;
+                padding: 10px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin: 4px 2px;
+                cursor: pointer;
+                box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+                " value="Submit" /></td>
             </tr>
+
         </table>
-    </form>
-    
+        </center>
 </form>
 </div>
 </div>
 </div>
 </div>
 </div>
-</center>
-
-{% endblock %}
 </section>
+{% endblock %}
 </body>
-
-
 </html>
-

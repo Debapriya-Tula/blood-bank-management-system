@@ -23,19 +23,6 @@
   <link href="{% static "assets/css/style.css" %}" rel="stylesheet">
     <link href="{% static "assets/css/user_card.css" %}" rel="stylesheet">
   <link href="{% static "assets/color/default.css" %}" rel="stylesheet">
-    <style>
-        img.resize{
-            height:350px;
-            width:600px;
-        }
-        .c1{
-	        top:10px;
-	        left:800px;
-	        position:absolute;
-        }
-    </style>
-
-
 
 </head>
 <body>
@@ -89,44 +76,29 @@
             <div id="slider_holder">
               <div id="sequence">
 			    <div class=" container main-login main-center">
-                <form class="form">
+                <form class="form" method="post">
+                    {% csrf_token %}
                     <h2 style="color:red;text-align:center">Hospital Portal</h2>
-                    Blood Group Required:
-					<table>
-						   <tr><td><input type="radio" name="radio" id="Opradio" value="O+">O+</td>
-						   <td><input type="radio" name="radio" id="Onradio" value="O-">O-</td>
-						   </tr>
-						   <tr>
-						   <td><input type="radio" name="radio" id="Apradio" value="A+">A+</td>
-						   <td><input type="radio" name="radio" id="Anradio" value="A-">A-</td>
-						   </tr>
-						   <tr>
-						   <td><input type="radio" name="radio" id="Bpradio" value="B+">B+</td>
-						   <td><input type="radio" name="radio" id="Bnradio" value="B-">B-</td>
-						   </tr>
-						   <tr>
-						   <td><input type="radio" name="radio" id="ABpradio" value="AB+">AB+</td>
-						   <td><input type="radio" name="radio" id="ABnradio" value="AB-">AB-</td>
-						   </tr>
-					</table>
-						<br>
+
+                    <div class="form-group">
+                        Type of blood required:
+                        {{ form.blood_group }}
+                    </div>
+
                     <div class="form-group">
                         Units of blood required:
-                        <input type='number' name="units">
+                        {{ form.blood_units }}
                     </div>
+
                     <div class="form-group">
-                        Hospital's Licence Key:
-                        <input type='text' name="licence">
-                    </div><br>
-                    <center><button class="btn btn-success button">Submit</button></center>
+                        Blood Component Required:
+                        {{ form.blood_component }}
+                    </div>
+                    <button type="submit">Submit</button>
 				</form>
 
 				</div>
               </div>
-                 <div class="c1">
-                    <img class="resize" src="{% static "assets/img/hospital.jpg" %}"  alt="">
-                </div>
-
 		</div>
             </div>
             <!-- Sequence Slider::END-->

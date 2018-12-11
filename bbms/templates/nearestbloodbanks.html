@@ -1,4 +1,3 @@
-
 <html>
 <head>
 <style>
@@ -17,7 +16,7 @@ body {
 </head>
 <body>
 
-  <section id="intro">
+
 <script>
 var map;
 var x=[];
@@ -26,22 +25,22 @@ var x=[];
                 try {
                   navigator.geolocation.getCurrentPosition(function(position) {
                     var myLocation = {
-                      lat: 13.5232,//position.coords.latitude
-                      lng:79.9982 ,//position.coords.longitude
+                      lat:position.coords.latitude,//17.3850,
+                      lng:position.coords.longitude,//78.4867,
                     };
                     setPos(myLocation);
                   });
                 } catch (err) {
                   var myLocation = {
-                    lat: 23.8701334,
-                    lng: 90.2713944
+                    lat:17.3850,//hyderabad
+                    lng:78.4867,//hyderabad
                   };
                   setPos(myLocation);
                 }
               } else {
                 var myLocation = {
-                  lat: 23.8701334,
-                  lng: 90.2713944
+                  lat:17.3850,//hyderabad
+                  lng:78.4867, //hyderabad
                 };
                 setPos(myLocation);
               }
@@ -50,7 +49,7 @@ var x=[];
             function setPos(myLocation) {
               map = new google.maps.Map(document.getElementById('map'), {
                 center: myLocation,
-                zoom: 25,
+                zoom: 10,
               });
 
               var marker = new google.maps.Marker({
@@ -58,15 +57,14 @@ var x=[];
                map: map,
                draggable: false,
                   animation: google.maps.Animation.DROP,
-
                   label: 'ME!!'
               });
 
               var service = new google.maps.places.PlacesService(map);
               service.nearbySearch({
                 location: myLocation,
-                radius: 50000,
-                keyword: ['bloodbanks']
+                radius: 60000,
+                keyword: ['bloodbank']
               }, processResults);
 
             }
@@ -86,13 +84,7 @@ var x=[];
               var placesList = document.getElementById('places');
 
               for (var i = 0, place; place = places[i]; i++) {
-                               // var image = {
-                  //url: place.icon,
-                  //size: new google.maps.Size(71, 71),
-                  //origin: new google.maps.Point(0, 0),
-                  //anchor: new google.maps.Point(17, 34),
-                  //scaledSize: new google.maps.Size(25, 25)
-                //};
+
 
                 var marker = new google.maps.Marker({
                   map: map,
@@ -104,7 +96,7 @@ var x=[];
 
                 });
 
-
+                console.log(place.geometry.location.lat(),place.geometry.location.lng())
                 GetAddress(place.name,place.geometry.location.lat(),place.geometry.location.lng())
 
                 bounds.extend(place.geometry.location);
@@ -127,7 +119,12 @@ var x=[];
                     if (results[1]) {
                         document.getElementById("list").innerHTML+="Location: "+name+results[1].formatted_address+"<br>";
                     }
+
+
                 }
+                else
+                {document.getElementById("list").innerHTML+="Location:"+name+"<br>";}
+
             });
         }
 
@@ -136,8 +133,8 @@ var x=[];
 <div id="map"></div>
 <div id="list"></div>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCH8o4TwEcdOVGYg6hQAfCws8V-J-z7NEk&signed_in=true&libraries=places&callback=initMap" async defer></script>
-</section>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBGCql0HlN4C_D7B2BcIIhtuFvjrdfvoew&signed_in=true&libraries=places&callback=initMap" async defer></script>
+
 
 </body>
 

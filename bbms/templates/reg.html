@@ -1,100 +1,368 @@
-
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
-
 <!DOCTYPE html>
-<html lang="en">
-    <head> 
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
+{% extends "base.html" %}
+<head>
+{% block extra_head %}
 
-		<!-- Website CSS style -->
-		<link rel="stylesheet" type="text/css" href="assets/css/main.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-		<!-- Website Font style -->
-	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
-		
-		<!-- Google Fonts -->
-		<link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
-		<link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
 
-		<title>Admin</title>
-	</head>
-	<body>
-		<div class="container">
-			<div class="row main">
-				<div class="panel-heading">
-	               <div class="panel-title text-center">
-	               		<h1 class="title">Company Name</h1>
-	               		<hr />
-	               	</div>
-	            </div> 
-				<div class="main-login main-center">
-					<form class="form-horizontal" method="post" action="#">
-						
-						<div class="form-group">
-							<label for="name" class="cols-sm-2 control-label">Your Name</label>
-							<div class="cols-sm-10">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="name" id="name"  placeholder="Enter your Name"/>
-								</div>
-							</div>
-						</div>
+{% endblock %}
+{% block style %}
+{% endblock %}
+ <meta charset="utf-8">
+  <title>BLOOD BANK</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
 
-						<div class="form-group">
-							<label for="email" class="cols-sm-2 control-label">Your Email</label>
-							<div class="cols-sm-10">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="email" id="email"  placeholder="Enter your Email"/>
-								</div>
-							</div>
-						</div>
+</head>
+<body>
+{% block body %}
+<section id="reg2">
+<div class="container register">
+                <div class="row">
+                    <div class="col-md-3 register-left">
 
-						<div class="form-group">
-							<label for="username" class="cols-sm-2 control-label">Username</label>
-							<div class="cols-sm-10">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="username" id="username"  placeholder="Enter your Username"/>
-								</div>
-							</div>
-						</div>
+                                           <div id="map">
+                                               </div>
+    <button id="showMe" class="btn">Use My Location</button>
 
-						<div class="form-group">
-							<label for="password" class="cols-sm-2 control-label">Password</label>
-							<div class="cols-sm-10">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-									<input type="password" class="form-control" name="password" id="password"  placeholder="Enter your Password"/>
-								</div>
-							</div>
-						</div>
 
-						<div class="form-group">
-							<label for="confirm" class="cols-sm-2 control-label">Confirm Password</label>
-							<div class="cols-sm-10">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-									<input type="password" class="form-control" name="confirm" id="confirm"  placeholder="Confirm your Password"/>
-								</div>
-							</div>
-						</div>
 
-						<div class="form-group ">
-							<button type="button" class="btn btn-primary btn-lg btn-block login-button">Register</button>
-						</div>
-						<div class="login-register">
-				            <a href="index.php">Login</a>
-				         </div>
-					</form>
-				</div>
-			</div>
-		</div>
 
-		<script type="text/javascript" src="assets/js/bootstrap.js"></script>
-	</body>
+                    </div>
+                    <div class="col-md-9 register-right">
+
+  <form id="shippingAddress" method="post" action="">
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab" style="height:550px;">
+                                <h3 class="register-heading">REGISTRATION</h3>
+                            <div class="row register-form">
+                                    <div class="col-md-6">
+                                      {% csrf_token %}
+                                  <input type="hidden" id="csrf_token" value='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>  
+                                        <div class="form-group">
+                                            <label class="active" for="uname">Username</label>
+                                            <input type="text" class="form-control" placeholder="Username*" value="" name="uname" required/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="active" for="email">Email</label>
+                                            <input type="email" class="form-control" placeholder="E-mail *" value="" name="email" required/>
+                                        </div>
+                                        <div class="input-field form-group">
+                                            <label class="active" for="city">City/District/Town</label>
+                                            <input class="input_fields form-control" id="city" type="text" name="city" placeholder="City/District/Town" required>
+                                        </div>
+                                       <div class="input-field form-group">
+                                          <label class="active" for="address">Address (Area and Street)</label>
+                                          <textarea class="input_fields materialize-textarea form-control" id="address" type="text" name="line1" required></textarea>
+                                      </div>
+                                     <div id="locationList"></div>
+                                    <div class="form-group">
+                                            <div class="maxl">
+                                                <label class="radio inline">
+                                                    <input type="radio" name="category" id="donorradio" value="donor" onclick="divfunction()" required>
+                                                    <span> Donor </span>
+                                                </label>
+                                                <label class="radio inline">
+                                                   <input type="radio" name="category" id="hosradio" value="hospital" onclick="divfunction()" required>
+                                                    <span>Hospital </span>
+                                                </label>
+                                                <label class="radio inline">
+                                                     <input type="radio" name="category" id="userradio" value="users" onclick="divfunction()" required>
+
+                                                    <span>User </span>
+                                                </label><div id="test"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+
+                                        <div class="form-group">
+                                            <label class="active" for="phn">Phone number</label>
+                                            <input type="number" class="form-control" placeholder="Ph-no*" value="" name="phno" required/>
+                                        </div>
+                                         <div class="form-group">
+                                            <label class="active" for="passwd">Password</label>
+                                            <input type="password" class="form-control" placeholder="password*" name="passwd"  value="" required/>
+                                        </div>
+                                        <div class="input-field form-group">
+                                            <label class="active" for="State">State</label>
+                                            <input class="input_fields form-control" id="state" type="text" placeholder="State*" name="state" required>
+                                        </div>
+                                        <div class="input-field form-group">
+                                            <label class="active" for="pin_code">Pincode</label>
+                                            <input class="input_fields form-control" id="postal_code" type="text" placeholder="Pincode*" name="postalcode" required>
+                                        </div>
+                                      
+                            </div>
+                        </div>
+                      </div>
+                      {% if eunm %}
+                      <center><div style="border:1px solid red; background:maroon; color:white; width:250px; height:30px; padding:5px;  border-radius:5px;">Username already exists</div></center>
+                    {% endif %}
+                    {% if eem %}
+                      <center><div style="border:1px solid red; background:maroon; color:white; width:300px; height:30px; padding:5px; border-radius:5px;">Email already exists. Try <a href = "/accounts/login">logging in</a>.</div></center>
+                    {% endif %}
+
+                    </div>
+                  </form>
+                </div>
+
+            </div>
+
+
+
+<script>
+
+ function OnInput (event) {
+            var x= event.target.value;
+            if (x.length==10 & x.indexOf('HOSP')==0)
+            {
+              document.getElementById("btdisplay").innerHTML = "<br><button class='buttonall' >Submit Form</button>";
+            }
+  }
+
+function divfunction()
+{
+    var x = document.getElementById("donorradio").checked;
+    var y = document.getElementById("userradio").checked;
+    var z = document.getElementById("hosradio").checked;
+    var xd="<div class='input-field form-group'><label class='active' for='fname'>Firstname</label><input class='input_fields form-control' id='fname' type='text' placeholder='firstname*' name='fname' required/></div><div class='input-field form-group'><label class='active' for='lname'>Lastname</label><input class='input_fields form-control' id='lname' type='text' placeholder='lastname' name='lname' required/></div><div class='input-field form-group'><label class='active' for='dob'>Date of Birth</label><input class='input_fields form-control' id='dob' type='date'  name='dob' required/></div><div class='input-field form-group'><label class='active' for='address'>Address line 2 (Area and Street)</label><textarea class='input_fields materialize-textarea form-control' id='address' type='text' name='line2' required></textarea></div><div class='input-field form-group'><label class='active' for='country'>Country</label><input class='input_fields form-control' id='country' type='text' placeholder='country' name='country' required/></div><div class='input-field form-group'><label class='active' for='gender'>Gender</label><br><select name='gender'><option value='Male'>Male</option><option value='Female'>Female</option><option value='Other'>Other</option></select></div><div class='input-field form-group'><label class='active' for='bgroup'>Blood Group</label><select name='bgroup'><option value='O+'>O '+ve'</option><option value='O-'>O '-ve'</option><option value='A+'>A '+ve'</option><option value='A-'>A '-ve'</option><option value='B+'>B '+ve'</option><option value='B-'>B '-ve'</option><option value='AB+'>AB '+ve'</option><option value='AB-'>AB '-ve'</option></select></div><div class='input-field form-group'><label class='active' for='height'>Height</label><input class='input_fields form-control' id='height' type='text' placeholder='height' name='height'required/></div><div class='input-field form-group'><label class='active' for='weight'>Weight</labe><input class='input_fields form-control' id='weight' type='text' placeholder='weight' name='weight' required/></div><br><button class='buttonall'>Submit Form</button>";
+    var yd=" <div class='input-field form-group'><label class='active' for='fname'>Firstname</label><input class='input_fields form-control' id='fname' type='text' placeholder='firstname*' name='fname' required/></div><div class='input-field form-group'><label class='active' for='lname'>Lastname</label><input class='input_fields form-control' id='lname' type='text' placeholder='lastname' name='lname' required/></div><div class='input-field form-group'><label class='active' for='dob'>Date of Birth</label><input class='input_fields form-control' id='dob' type='date'  name='dob' required/></div><div class='input-field form-group'><label class='active' for='gender'>Gender</label><br><select name='gender'><option value='Male'>Male</option><option value='Female'>Female</option><option value='Other'>Other</option></select></div><label class='active' for='bgroup'>Blood Group</label><select name='bgroup'><option value='O+'>O '+ve'</option><option value='O-'>O '-ve'</option><option value='A+'>A '+ve'</option><option value='A-'>A '-ve'</option><option value='B+'>B '+ve'</option><option value='bn'>B '-ve'</option><option value='AB+'>AB '+ve'</option><option value='AB-'>AB '-ve'</option></select><br><br><button class='buttonall'>Submit Form</button>";
+    var zd="<div class='input-field form-group'><label class='active' for='name'>Hospital Name</label><input class='input_fields form-control' id='name' type='text' placeholder='Hospital name' name='name' required/></div><label class='active' for='address'>Address (Area and Street)</label><textarea class='input_fields materialize-textarea form-control' id='address' type='text' name='line2'></textarea></div><div class='input-field form-group'><label class='active' for='license'>Hospital's license key</label><input oninput='OnInput (event)' onpropertychange='OnPropChanged (event)'' class='input_fields form-control' id='license' type='text' placeholder='Lisence*' name='license' required/></div><div id='btdisplay'></div>";
+    switch(true)
+    {
+        case x:
+            document.getElementById("test").innerHTML = xd;
+            break;
+        case y:
+            document.getElementById("test").innerHTML = yd;
+            break;
+        case z:
+            document.getElementById("test").innerHTML = zd;
+            break;
+    }
+}
+
+
+
+</script>
+
+
+
+
+
+
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCH8o4TwEcdOVGYg6hQAfCws8V-J-z7NEk"></script>
+<script>
+
+const mapArea = document.getElementById('map');
+
+const $ = id => document.getElementById(id);
+
+const actionBtn = document.getElementById('showMe');
+const locationsAvailable = document.getElementById('locationList');
+let Gmap, Gmarker;
+
+const __KEY = "AIzaSyBGCql0HlN4C_D7B2BcIIhtuFvjrdfvoew";
+
+actionBtn.addEventListener('click', e => {
+
+  actionBtn.style.display = "none";
+
+
+  getLocation();
+
+});
+
+getLocation = () => {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(displayLocation, showError, options)
+
+  }
+
+}
+
+
+displayLocation = (position) => {
+  const lat = position.coords.latitude;
+  const lng = position.coords.longitude;
+
+  const latlng = { lat, lng }
+
+  showMap(latlng, lat, lng);
+  createMarker(latlng);
+  mapArea.style.display = "block";
+  getGeolocation(lat, lng);
+
+}
+
+showMap = (latlng, lat, lng) => {
+  let mapOptions = {
+    center: latlng,
+    zoom: 17
+  };
+
+  Gmap = new google.maps.Map(mapArea, mapOptions);
+
+  Gmap.addListener('drag', function () {
+    Gmarker.setPosition(this.getCenter());
+  });
+
+  Gmap.addListener('dragend', function () {
+    Gmarker.setPosition(this.getCenter());
+  });
+
+  Gmap.addListener('idle', function () {
+
+    Gmarker.setPosition(this.getCenter());
+
+    if (Gmarker.getPosition().lat() !== lat || Gmarker.getPosition().lng() !== lng) {
+      setTimeout(() => {
+               updatePosition(this.getCenter().lat(), this.getCenter().lng());
+      }, 2000);
+    }
+  });
+
+}
+
+
+createMarker = (latlng) => {
+  let markerOptions = {
+    position: latlng,
+    map: Gmap,
+    animation: google.maps.Animation.BOUNCE,
+    clickable: true
+
+  };
+  Gmarker = new google.maps.Marker(markerOptions);
+
+}
+
+
+updatePosition = (lat, lng) => {
+
+  getGeolocation(lat, lng);
+}
+
+showError = (error) => {
+  mapArea.style.display = "block"
+  switch (error.code) {
+    case error.PERMISSION_DENIED:
+      mapArea.innerHTML = "You denied the request for your location."
+      break;
+    case error.POSITION_UNAVAILABLE:
+      mapArea.innerHTML = "Your Location information is unavailable."
+      break;
+    case error.TIMEOUT:
+      mapArea.innerHTML = "Your request timed out. Please try again"
+      break;
+    case error.UNKNOWN_ERROR:
+      mapArea.innerHTML = "An unknown error occurred please try again after some time."
+      break;
+  }
+}
+
+const options = {
+  enableHighAccuracy: true
+}
+
+getGeolocation = (lat, lng) => {
+
+  const latlng = lat + "," + lng;
+
+  fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latlng}&key=${__KEY}`)
+
+    .then(res => res.json())
+
+    .then(data => populateCard(data.results));
+
+}
+
+function removeAddressCards() {
+  if (locationsAvailable.hasChildNodes()) {
+    while (locationsAvailable.firstChild) {
+      locationsAvailable.removeChild(locationsAvailable.firstChild);
+    }
+  }
+}
+
+populateCard = (geoResults) => {
+
+  removeAddressCards();
+
+  geoResults.map(geoResult => {
+
+
+    const addressCard = document.createElement('div');
+
+
+    const input = document.createElement('input');
+    const label = document.createElement('label');
+
+
+    addressCard.classList.add("card");
+    input.classList.add("with-gap");
+
+
+    label.setAttribute("for", geoResult.place_id);
+    label.innerHTML = geoResult.formatted_address;
+
+    input.setAttribute("name", "address");
+    input.setAttribute("type", "radio");
+    input.setAttribute("value", geoResult.formatted_address);
+    input.setAttribute("id", geoResult.place_id);
+
+    input.addEventListener('click', () => inputClicked(geoResult));
+
+    finalResult = geoResult.formatted_address;
+
+
+    addressCard.appendChild(input);
+    addressCard.appendChild(label);
+
+
+
+    return (
+      locationsAvailable.appendChild(addressCard)
+    );
+  })
+}
+
+inputClicked = (result) => {
+
+  result.address_components.map(component => {
+    const types = component.types
+
+    if (types.includes('postal_code')) {
+      $('postal_code').value = component.long_name
+    }
+
+
+
+    if (types.includes('administrative_area_level_2')) {
+      $('city').value = component.long_name
+    }
+
+    if (types.includes('administrative_area_level_1')) {
+      $('state').value = component.long_name
+    }
+
+    });
+
+  $('address').value = result.formatted_address;
+
+
+  //M.updateTextFields();
+  removeAddressCards();
+}
+
+</script>
+</section>
+{% endblock %}
+</body>
+
 </html>

@@ -33,7 +33,6 @@ def home(request):
 	context={'pop':pop}
 	return render(request, 'payments/home.html', context)
 
-
 def processed(request):
 	pop=0
 	context={
@@ -51,7 +50,6 @@ def listOrders(request):
 		context={'items1':0}
 		return render(request, 'payments/no_one_left.html', context)
 
-@staff_member_required
 def authenticate(request, num):
 	obj=DataBase.objects.get(id=num)
 	form = admin_fillform()
@@ -60,10 +58,10 @@ def authenticate(request, num):
 		
 		obj1=finalorder.objects.create(order=obj, component=form['component'])
 		obj.auth_complete=True
-		#email = obj.user_name.email
-		#sub = "Confirmed your order for requesting blood"
-		#body = "We got a request from your account that you need "+str(obj.blood_group)+" of "+str(obj.blood_units)+" units. Your prescription is authenticated.<br>Proceed to checkout. <a href='127.0.0.1:8000/payments/finalize/'>Click here</a>"
-		#sendmail(email,sub,body)
+		email = obj.user_name.email
+		sub = "Confirmed your order for requesting blood"
+		body = "We got a request from your account that you need "+str(obj.blood_group)+" of "+str(obj.blood_units)+" units. Your prescription is authenticated.<br>Proceed to checkout. <a href='127.0.0.1:8000/payments/finalize/'>Click here</a>"
+		sendmail(email,sub,body)
 		obj.save()
 		return redirect('final')
 		#return HttpResponse("Hello")

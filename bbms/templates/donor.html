@@ -1,5 +1,6 @@
 {% load static %}
 
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,17 +24,6 @@
   <link href="{% static "assets/css/style.css" %}" rel="stylesheet">
     <link href="{% static "assets/css/user_card.css" %}" rel="stylesheet">
   <link href="{% static "assets/color/default.css" %}" rel="stylesheet">
-    <style>
-        img.resize{
-            height:450px;
-            width:800px;
-        }
-        .c1{
-	        top:100px;
-	        left:700px;
-	        position:absolute;
-        }
-    </style>
 
 </head>
 <body>
@@ -81,62 +71,55 @@
 
         </div>
         <!-- end slider navigation -->
-        <div class="row">
-          <div class="span12">
-            <div id="slider_holder">
-              <div id="sequence">
-			    <div class=" container main-login main-center">
-                <form class="form">
+        <div class="row" style="height:1500px;">
+          <div class="span12" style="height:1500px;">
+            <div id="slider_holder" style="height:1500px;">
+              <div id="sequence" style="height:1500px;">
+			    <div class=" container main-login main-center" style="height:1500px;">
+                <form class="form" method="POST">
+                    {% csrf_token %}
                     <h2 style="color:red;text-align:center">Donor Portal</h2>
                     <br>
 					<div class="form-group">
-						Working hours:
-						From<input type='time' name="fromtime"><br>
-						<div style="margin-left:120px;">
-							To<input type='time' name="totime">
-						</div>
-						<br>
-						<br>
-					<div class="form-group">
-						   Units of blood you want to donate:
+					</div>
+                        <br>
+                        <table>
+                          <tr>
+                            <td>Last Donate Date: </td>
 
-						   <input type='number' name="units"></div>
+                            <td>{{ form.last_donate_date }}</td>
+                          </tr>
+                        </table>
+                        <br>
 						   <b>Note:</b>You cannot donate more than 2 units of blood.
 						   <br>
 						   <br>
-						   Do you want to donate or sell blood:<br>
-						   <input type="radio" name="radio" id="donateradio" value="donate" style="hspace=10;">donate
-						   <input type="radio" name="radio" id="sellradio" value="sell">sell
-							<br>
+                           <div class="don_sell">
+                                Do you want to donate or sell blood:
+                                {{ form.don_or_sell }}
+						                </div>
+                           <br>
 							<br>
 					<h3>Please check eligibility for blood donation:</h3>
-						   <table style="padding-top:10px;padding-left:30px;">
-
+                        <div class="don_sell">
 							I have not suffered from <font color="#FF0000">#</font>
-                               <table>
-							<tr><td><input type="checkbox" name="suffered1[]" value="1" tabindex="27" style="vertical-align:middle;" >&nbsp;Hepatitis B, C</td></tr>
-							<tr><td><input type="checkbox" name="suffered1[]" value="2" tabindex="28" style="vertical-align:middle;" >&nbsp;AIDS</td></tr>
-							<tr><td><input type="checkbox" name="suffered1[]" value="3" tabindex="29" style="vertical-align:middle;" >&nbsp;Cancer</td></tr>
-							<tr><td><input type="checkbox" name="suffered1[]" value="4" tabindex="30" style="vertical-align:middle;" >&nbsp;Kidney disease</td></tr>
-							<tr><td><input type="checkbox" name="suffered1[]" value="5" tabindex="31" style="vertical-align:middle;" >&nbsp;Heart disease</td></tr>
-						</table>
+
+                               {{ form1.as_p }}
+                        </div>
 						<br>
 						<div style="padding-left:30px;"><font color="#FF0000">#</font>
 						Please consult your physician to check for eligibility.
                         </div>
-                           <div style="padding:10px;"><input type="checkbox" name="suffered" value="YES"  tabindex="32">
+                           <div style="padding:10px;"><input type="checkbox" name="suffered" value="YES"  tabindex="32" required>
                                 I have read the above eligibility criteria and confirm that I am eligible to donate blood.
                             </div><br>
-						<center><button class="btn btn-success button">Submit</button></center>
+						<button type="submit">Submit</button>
 
 
-				</form>
+               </form>
 
 				</div>
               </div>
-                <div class="c1">
-                    <img class="resize" src="{% static "assets/img/thanku.jpg" %}"  alt="">
-                </div>
 
 		</div>
             </div>

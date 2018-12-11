@@ -2,10 +2,13 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
+<br>
 <h3>&nbsp;{% ifequal catg 'donor' %} Donor {% endifequal %}
 		{% ifequal catg 'userd' %} Patient {% endifequal %}
 		{% ifequal catg 'hospital' %} Hospital {% endifequal %}
 profile page</h3>
+
+<br>
 <div class="container">
 	<div class="row">
 		<div class="col-md-3 ">
@@ -20,14 +23,20 @@ profile page</h3>
 		        <div class="card-body">
 		            <div class="row">
 		                <div class="col-md-12">
-		                    <h4>{{ uname }} Profile</h4>
+		                    <h4>{{ updated }}  {{ uname }} Profile</h4>
 		                    <hr>
 		                </div>
-		            </div>
+                </div>
+                {% if updated %}
+                <div style="border:1px solid green; background:lightgreen; color:white; width:240px; height:40px; padding:5px; border-radius:5px;">
+                  Profile Updated.
+                </div>
+                {% endif %}
 		            <div class="row" id="1">
 		                <div class="col-md-12">
-		                    <form action='upprofile/' method="POST">
-                          {% if donor %}
+                        <form action='upprofile/' method="POST">
+                          {% csrf_token %}
+                          {% ifequal catg 'donor' %}
                             <input type="hidden" name="uname" value="{{ uname }}">
                             <input type="hidden" name="catg" value="donor">
                             <div class="form-group row">
@@ -49,6 +58,12 @@ profile page</h3>
                               </div>
                             </div>
                             <div class="form-group row">
+                              <label for="state" class="col-4 col-form-label">State</label>
+                              <div class="col-8">
+                                <input id="state" name="state" placeholder="State" class="form-control here" type="text">
+                              </div>
+                            </div>  
+                            <div class="form-group row">
                               <label for="pincode" class="col-4 col-form-label">Pin Code</label>
                               <div class="col-8">
                                 <input id="pincode" name="pincode" placeholder="Pin Code" class="form-control here" type="text">
@@ -67,7 +82,7 @@ profile page</h3>
                               </div>
                             </div>
                             <div class="form-group row">
-                              <label for="dob" class="col-4 col-form-label">date of Birth</label>
+                              <label for="dob" class="col-4 col-form-label">Date of Birth</label>
                               <div class="col-8">
                                 <input id="dob" name="dob" placeholder="Date of Birth" class="form-control here" type="date">
                               </div>
@@ -78,8 +93,8 @@ profile page</h3>
                                 <input id="phno" name="phno" placeholder="Phone Number" class="form-control here" type="text">
                               </div>
                             </div>
-                          {% endif %}
-                          {% if hospital %}
+                          {% endifequal %}
+                          {% ifequal catg 'hospital' %}
                           <input type="hidden" name="uname" value="{{ uname }}">
                           <input type="hidden" name="catg" value="donor">
                           <div class="form-group row">
@@ -101,6 +116,12 @@ profile page</h3>
                             </div>
                           </div>
                           <div class="form-group row">
+                            <label for="state" class="col-4 col-form-label">State</label>
+                            <div class="col-8">
+                              <input id="state" name="state" placeholder="State" class="form-control here" type="text">
+                            </div>
+                          </div>
+                          <div class="form-group row">
                             <label for="pincode" class="col-4 col-form-label">Pin Code</label>
                             <div class="col-8">
                               <input id="pincode" name="pincode" placeholder="Pin Code" class="form-control here" type="text">
@@ -115,11 +136,11 @@ profile page</h3>
                           <div class="form-group row">
                               <label for="phno" class="col-4 col-form-label">License key</label>
                               <div class="col-8">
-                                <input id="phno" name="License" placeholder="License" class="form-control here" type="text">
+                                <input id="phno" name="license" placeholder="License" class="form-control here" type="text">
                               </div>
                             </div>
-                          {% endif %}
-                        {% if userd %}
+                        {% endifequal %}
+                        {% ifequal catg 'userd' %}
                         <input type="hidden" name="uname" value="{{ uname }}">
                         <input type="hidden" name="catg" value="user">
                         <div class="form-group row">
@@ -134,7 +155,7 @@ profile page</h3>
                             <input id="phno" name="phno" placeholder="Phone Number" class="form-control here" type="text">
                           </div>
                         </div>
-                    {% endif %}
+                      {% endifequal %}
                               <div class="form-group row">
                                 <div class="offset-4 col-8">
                                   <button name="submit" type="submit" class="btn btn-primary">Update My Profile</button>
@@ -151,9 +172,21 @@ profile page</h3>
                 </div>
                 <div class="row" id="2">
 		                <div class="col-md-12"x>
-		                  <form action='upsett/' method="POST">
+                      <form action='/accounts/profile/upsett/' method="POST">
+                        {% csrf_token %}
                         <input type="hidden" name="uname" value="{{ uname }}">
                         <input type="hidden" name="catg" value="{{ catg }}">
+                        <center>{% if newper %}
+                        <div style="border:1px solid red; background:maroon; color:white; width:240px; height:40px; padding:5px; border-radius:5px;">
+                          <p>New passwords doesn't match</p>
+                        </div>
+                        {% endif %}
+                        {% if oldp %}
+                          <div style="border:1px solid red; background:maroon; color:white; width:240px; height:40px; padding:5px; border-radius:5px;">
+                            <p>Current password is incorrect</p>
+                          </div>
+                        {% endif %}</center>
+                        <br>
                         <div class="form-group row">
                             <label for="line1" class="col-4 col-form-label">Confirm Password</label>
                             <div class="col-8">
@@ -171,14 +204,6 @@ profile page</h3>
                               <div class="col-8">
                                 <input id="npasswdc" name="npasswdc" placeholder="Confirm your new password*" class="form-control here" required='required' type="password">
                               </div>
-                            </div>
-                            <div>
-                              {% if newper %}
-                                  <p>New passwords doesn't match</p>
-                              {% endif %}
-                              {% if oldp %}
-                                  <p>Current password is incorrect</p>
-                              {% endif %}
                             </div>
                             <div class="form-group row">
                               <div class="offset-4 col-8">

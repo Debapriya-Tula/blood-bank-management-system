@@ -23,17 +23,6 @@
     <link href="{% static "assets/css/style.css" %}" rel="stylesheet">
     <link href="{% static "assets/css/user_card.css" %}" rel="stylesheet">
     <link href="{% static "assets/color/default.css" %}" rel="stylesheet">
-    <style>
-        img.resize{
-            height:450px;
-            width:400px;
-        }
-        .c1{
-	        top:10px;
-	        left:800px;
-	        position:absolute;
-        }
-    </style>
 
 
 </head>
@@ -58,10 +47,13 @@
                 </li>
 
                 <li class="dropdown">
-                  <a href="/chat" style="font-size:20px">Blog</a>
+                  <a href="#" style="font-size:20px">Blog</a>
                 </li>
                 <li>
-                  <a href="/#ad" style="font-size:20px">Contact</a>
+                  <a href="#" style="font-size:20px">Contact</a>
+                </li>
+				<li>
+                  <a href="#" style="font-size:20px">LogOut</a>
                 </li>
               </ul>
             </nav>
@@ -84,45 +76,55 @@
     <div id="slider_holder">
       <div id="sequence">
         <div class=" container main-login main-center">
-            <form method="post" action="/payments/buy_blood/" enctype="multipart/form-data" class="form">
+            <form method="post" enctype="multipart/form-data" class="form">
             {% csrf_token %}
-            
                 <h2 style="color:red;text-align:center">Patient Portal</h2>
-                <br>
-                Blood Group Required:
-                <select name='bgroup'>
-                  <option value='op'>O '+ve'</option>
-                  <option value='on'>O '-ve'</option>
-                  <option value='ap'>A '+ve'</option>
-                  <option value='an'>A '-ve'</option>
-                  <option value='bp'>B '+ve'</option>
-                  <option value='bn'>B '-ve'</option>
-                  <option value='abp'>AB '+ve'</option>
-                  <option value='abn'>AB '-ve'</option>
-                </select>
-          
-        <div class="form-group">
-               Units of blood required:
+                    <br>
 
-            <input type='number' name="units">
-            <br><br>
-        </div>
-        Doctors Prescription Certificate:
-        <br><br>
-        {{ form }}
-        <button type="submit">Submit</button>
 
-        {% if uploaded_file_url %}
+                    <div class="form-group">
+						Working hours:
+						From
+                        {{ form.from_time }}
+                    </div>
+						<div style="margin-left:120px;">
+							To
+                            {{ form.to_time }}
+						</div>
+                        <br>
+            <table>
+            <tr>
+                <td>User Name:</td>
+                <td>{{ form.user_name }}</td>
+
+            </tr>
+            <tr>
+                <td>Type of blood required:</td>
+                <td>{{ form.blood_group }}</td>
+
+            </tr>
+            <tr>
+                <td>Units of blood required:</td>
+                <td>{{ form.blood_units }}</td>
+            </tr>
+            <tr>
+            <td>Doctors Prescription Certificate:
+
+                <td>{{ form.picture }}</td>
+            </tr>
+             </table>
+
+                <button type="submit">Upload</button>
+
+                    {% if uploaded_file_url %}
             <p>File uploaded at: <a href="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
         {% endif %}
+
 
     </form>
 
     </div>
       </div>
-    <div class="c1">
-        <img class="resize" src="{% static "assets/img/blood_donation .png" %}"  alt="">
-    </div>
 
 </div>
     </div>
