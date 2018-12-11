@@ -6,7 +6,7 @@ from accounts.models import Patient_reg, Patient_details
 from .forms import *
 from django.contrib import messages
 from accounts.models import veremail
-from accounts.views import confirm_register, dropindb
+from accounts.views import confirm_register, dropindb, sendmail
 from random import randint as rand
 
 # Create your views here.
@@ -31,7 +31,6 @@ def patient(request):
                 email=user.email
                 fname=user.first_name
                 lname=user.last_name
-                print(PD)
                 tell_admin(email,fname,lname,ph_no)
                 messages.success(request, f'Your order has been placed. You will soon be notified via E-mail')
                 return redirect('processed')
@@ -51,23 +50,11 @@ def patient(request):
         return render(request, 'patient.html', {'form': profile_form})
 
 
-from django.core.mail import send_mail
-from django.conf import settings
-
-
-def send_email(message,recipient_list):
-    subject = 'New user'
-    email_from = settings.EMAIL_HOST_USER
-    send_mail( subject, message, email_from, recipient_list)
-    #return HttpResponse("I am done")
-
-
 def tell_admin(email,fname,lname,ph_no):
-    message = "A new User, {0} {1} with mail-id {2} has sent details".format(fname,lname,email)
-    recipient_list = [str(email)]
+    message = "A new User, {0} {1} with mail-id {2}, phone number has sent details".format(fname,lname,email,ph_no)
 
             #Send the mail to the admin who will check for detail authentication
-    send_email(message,recipient_list)
+    sendmail(email,"New user",message)
 
             #Send a whatsapp message to the user
     #from .whatsapp import fill_details
