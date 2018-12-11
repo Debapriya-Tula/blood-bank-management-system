@@ -1,0 +1,83 @@
+@import "compass/css3";
+
+
+* {
+  box-sizing: border-box;
+}
+body {
+
+}
+
+.wrapper {
+  margin: 0 auto;
+  width: 304px;
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  padding-right:400px;
+}
+.picture {
+
+  width: 200px;
+
+  position: relative;
+  float: left;
+  margin: 0 20px;
+}
+.hook {
+  width: 4px;
+  height: 4px;
+  background-color: #5c5c5d;
+  margin: 0 auto 32px auto;
+  border-radius: 50%;
+  box-shadow: 0 1px 0 1px #a49c7c;
+  &:before {
+    content: '';
+    width: 40px;
+    height: 40px;
+    border: 2px solid #a49c7c;
+    position: absolute;
+    left: 34px; top: 13px;
+    transform: rotate(45deg);
+    z-index: -1;
+  }
+}
+.frame {
+  height: 180px;
+
+  border-top: 6px solid #b89675;
+  border-right: 6px solid #7b654f;
+  border-bottom: 6px solid #7b654f;
+  border-left: 6px solid #a67c52;
+  box-shadow: 4px 4px 0 0 rgba(189,166,72,0.6);
+  z-index: 1;
+}
+.inside {
+  height: 168px;
+  background: #f5f5f5 url(../img/slide2.jpeg) no-repeat top center !important;
+  background-size:168px 180px !important;
+  border: 10px solid #fff;
+  box-shadow: 1px 1px 1px 1px rgba(189,193,194,0.3) inset;
+}
+.inside1 {
+  height: 168px;
+  background: #f5f5f5 url(../img/slide1.jpeg) no-repeat top center !important;
+  background-size:168px 180px !important;
+  border: 10px solid #fff;
+  box-shadow: 1px 1px 1px 1px rgba(189,193,194,0.3) inset;
+}
+.inside2 {
+  height: 168px;
+  background: #f5f5f5 url(../img/slide2.jpeg) no-repeat top center !important;
+  background-size:168px 180px !important;
+  border: 10px solid #fff;
+  box-shadow: 1px 1px 1px 1px rgba(189,193,194,0.3) inset;
+}
+.dribbble {
+  font: 0.75em/1.5em verdana,sans-serif;
+  color: #7b654f;
+  position: absolute;
+  bottom: 1.5em; right: 1.5em;
+}

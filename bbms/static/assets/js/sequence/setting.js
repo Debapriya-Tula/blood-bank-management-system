@@ -1,7 +1,7 @@
 $(document).ready(function() {
   var options = {
     autoPlay: true,
-    autoPlayDelay: 5000,
+    autoPlayDelay:3000,
     nextButton: true,
     prevButton: true,
     preloader: true,
@@ -9,7 +9,7 @@ $(document).ready(function() {
     transitionThreshold: 500,
     fallback: {
       theme: "slide",
-      speed: 500
+      speed: 200
     }
   };
 	
