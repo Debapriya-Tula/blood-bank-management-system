@@ -1,0 +1,46 @@
+
+{% extends 'InventoryManagement/base.html' %}
+
+{% block content %}
+</div>
+
+<br>
+<table class="table table-dark table-hover">
+	<thead>
+		<tr>
+			<th>Blood Type</th>
+			<th>Units</th>
+			<th>Component</th>
+			<th>Price</th>
+			<th>Total</th>
+			
+		</tr>
+	</thead>
+
+	<tbody>
+		
+		{% for item1 in items %}
+			<tr>
+				<td>{{ item1.blood_group }}</td>
+				<td>{{ item1.blood_units }}</td>
+				<td>{{ item1.component }}</td>
+				<td>{{ item1.price }}</td>
+				<td>{{ item1.total }}</td>
+				
+			</tr>
+			
+
+		{% endfor %}
+	
+	</tbody>
+
+</table>	
+
+
+<form method="POST" action="{% url 'checkout' %}">
+			{% csrf_token %}
+		<div class="form-group" >
+				<button class="btn btn-outline-info" type="submit">Proceed to Checkout</button>
+		</div>
+	</form>
+{% endblock content %}
