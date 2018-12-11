@@ -1,14 +1,85 @@
 from django import forms
+from patient_portal import forms as patient_forms
+from .models import *
 
-class loginform(forms.Form):
-    CHOICES=[('donor','donor'),
-        ('hospital','hospital'),
-        ('user','user')]
-    Who_are_you  = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect())
-    username = forms.CharField(label='Your User Name', max_length=100)
-    password = forms.CharField(label='Your Password', max_length=100, widget=forms.PasswordInput())
+CHOICES = patient_forms.Blood_group
 
-    
-class passconfrm(forms.Form):
-    password = forms.CharField(label='New Password', max_length=100, widget=forms.PasswordInput())
-    passwordconfrm = forms.CharField(label='Confirm new Password', max_length=100, widget=forms.PasswordInput())
+radio_button=[
+    ('donate','donate'),
+    ('sell','sell'),
+]
+disease_radio=[
+    ('Yes','Yes'),
+    ('No','No'),
+]
+
+
+class Donor_Form(forms.ModelForm):
+    class Meta:
+        model = Donor_DataBase
+        fields = ['don_or_sell','last_donate_date']
+
+    #last_donate_date = forms.DateTimeField()
+    don_or_sell = forms.CharField(
+        widget = forms.RadioSelect(
+            choices = radio_button,
+
+        )
+    )
+
+       
+class Disease_form(forms.ModelForm):
+    class Meta:
+        model = Diseases
+
+
+        fields = ['Asthma', 'Cancer', 'Cardiac_Disease', 'Diabetes', 'Epilepsy', 'Hypertension', 'Kidney_Disease', 'HIV']
+    Asthma = forms.CharField(
+    widget = forms.RadioSelect(
+        choices = disease_radio,
+
+        )
+    )
+    Cancer = forms.CharField(
+        widget = forms.RadioSelect(
+            choices = disease_radio,
+
+        )
+    )
+    Cardiac_Disease = forms.CharField(
+        widget = forms.RadioSelect(
+            choices = disease_radio,
+
+        )
+    )
+    Diabetes = forms.CharField(
+        widget = forms.RadioSelect(
+            choices = disease_radio,
+
+        )
+    )
+    Epilepsy = forms.CharField(
+        widget = forms.RadioSelect(
+            choices = disease_radio,
+
+        )
+    )
+    Hypertension = forms.CharField(
+        widget = forms.RadioSelect(
+            choices = disease_radio,
+
+        )
+    )
+    Kidney_Disease = forms.CharField(
+        widget = forms.RadioSelect(
+            choices = disease_radio,
+
+        )
+    )
+    HIV = forms.CharField(
+        widget = forms.RadioSelect(
+            choices = disease_radio,
+
+        )
+    )
+

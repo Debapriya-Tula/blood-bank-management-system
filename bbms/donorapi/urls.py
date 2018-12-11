@@ -1,8 +1,10 @@
-from django.urls import path,include
+from django.urls import path
+from rest_framework.authtoken.views import obtain_auth_token
 from . import views
 
-app_name = 'donorapi'
-
 urlpatterns = [
-	path(r'', views.register, name='register'),
+    path(r'donorlist/', views.Donor_detailslist.as_view(), name='donorlist'),
+    path(r'api_token_auth/', obtain_auth_token, name='api_token_auth'),
+    path(r'get_api/', views.getapi, name='api_token_auth'),
+    path(r'try/', views.getjs)
 ]

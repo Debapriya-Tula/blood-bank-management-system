@@ -5,19 +5,19 @@ class veremail(models.Model):
 	uname = models.CharField(max_length=50)
 
 blood_grp_choices = (
-					('O_pos','O+'),
-					('O_neg','O-'),
-					('A_pos','A+'),
-					('A_neg','A-'),
-					('B_pos','B+'),
-					('B_neg','B-'),
-					('AB_pos','AB+'),
-					('AB_neg','AB-'),
+					('O+','O+'),
+					('O-','O-'),
+					('A+','A+'),
+					('A-','A-'),
+					('B+','B+'),
+					('B-','B-'),
+					('AB+','AB+'),
+					('AB-','AB-'),
 )
 gender_choices = (
-					('Male','M'),
-					('Female','F'),
-					('Other','T'),
+					('M','Male'),
+					('F','Female'),
+					('O','Other'),
 )
 
 class Patient_reg(models.Model):

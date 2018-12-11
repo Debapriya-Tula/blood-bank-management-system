@@ -1,5 +1,5 @@
 #	Import modules and models
-
+from django.conf import settings
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader, RequestContext
@@ -50,6 +50,10 @@ def sendmail(email,subject,body):
 	mail.HTMLBody = '<p>'+str(body)+'</p>'
 	mail.send
 
+def em_verify(code):
+	sub="OTP for registration in Blood_bank_management_website"
+	body="This is a computer generated mail. Please do not reply back to this email.<br> The OTP code for your registration process is "+str(code)
+	sendmail(email,sub,body)
 
 # Function to create session for number of tries for a login or a bypassing OTP 
 
@@ -114,7 +118,7 @@ def uptodb(ctg,details,cd):
 		new_entry = Donor_details.objects.create(userd = ne, ad_line1 = details['line1'], ad_line2 = details['line2'], pincode = details['postalcode'], city = details['city'], state = details['state'], gender = details['gender'], ph_no = details['ph_no'], d_o_b=details['dob'], weight = details['weight'], height = details['height'], blood_group = details['bgroup'])
 
 	elif str(ctg) == 'hospital':
-		ne = Hospital_reg.objects.create(username = details['uname'] ,email = details['email'], password = md5hash(details['passwd']), hospital_name = details['name'], ad_line1 = details['line1'], ad_line2 = details['line2'], pincode = details['postalcode'], city = details['city'], state = details['state'], license = details['license'], semail_verified = 0)
+		ne = Hospital_reg.objects.create(username = details['uname'] ,email = details['email'], password = md5hash(details['passwd']), hospital_name = details['name'], ad_line1 = details['line1'], ad_line2 = details['line2'], pincode = details['postalcode'], city = details['city'], state = details['state'], license = details['license'], email_verified = 0)
 
 	elif str(ctg) == 'users':
 		ne = Patient_reg.objects.create(username = details['uname'] ,email = details['email'], password = md5hash(details['passwd']), first_name = details['fname'], last_name = details['lname'], email_verified=0)
@@ -207,13 +211,13 @@ def register(request):
 		email = details['email']
 		context.update(csrf(request))
 		code = rand(100000,999999)
+		print('working',code)
+
 		if flagem==0:
 			if flagun == 0:
-				print('working')
+				print('working',code)
 				uptodb(type,details,code)
-				sub="OTP for registration in Blood_bank_management_website"
-				body="This is a computer generated mail. Please do not reply back to this email.<br> The OTP code for your registration process is "+str(code)
-				sendmail(email,sub,body)
+				#em_verify(email,code)
 				template = loader.get_template('confirm_register.html')
 				return HttpResponse(template.render(context,request))
 			else:
@@ -255,6 +259,7 @@ def login(request):
 			context = {'uname':uname}
 			template = loader.get_template('aflogin.html')
 			request.session['sess_id_'+str(wry)]='bbms_'+str(wry)+'_'+str(uname)
+			settings.SESSION_EXPIRE_AT_BROWSER_CLOSE =  False
 			context[str(wry)] = uname
 			if request.session.has_key('sess_togo'):
 				togo = request.session['sess_togo']
@@ -273,7 +278,7 @@ def login(request):
 
 			context['error'] = "Sorry. Invalid credentils."
 			response = HttpResponse(template.render(context,request)) 
-
+			context.update(csrf(request))
 			if tryreq(response,request):
 				return HttpResponse("You've tried incorrectly three times. Please try again after some time")
 
@@ -282,6 +287,7 @@ def login(request):
 	else:
 		template = loader.get_template('login.html')
 		context = { 'form':loginform }
+		context.update(csrf(request))
 		return HttpResponse(template.render(context,request))
 
 def aflogin(request):
@@ -302,6 +308,8 @@ def aflogin(request):
 		un = str(request.session['sess_id_donors']).split('_')
 		context['donor'] = un[2]
 		flag = 1
+
+	context.update(csrf(request))
 
 	if flag==1:
 		template = loader.get_template('aflogin.html')
@@ -329,23 +337,18 @@ def fpassinit(request):
 		context['username'] = request.POST.get('uname')
 		context['catg'] = request.POST.get('catg')
 #		print(context)
-		if context['catg'] == "donor":
-			fndb = Donor_reg
-		elif context['catg'] == "hospital":
-			fndb = Hospital_reg
-		elif context['catg'] == "patient":
-			fndb = Patient_reg
+		fndb = dbp[context['catg']]
+		context.update(csrf(request))
 
 		ig = fndb.objects.filter(username = context['username'],email = context['email'])
 		if ig:
-#			print('you are amazing')
 			cd = rand(100000,999999)
-#			print(cd)
+			print(cd)
 			sub = "Request for change in password"
 			body = "We found that you are trying to change your " + str(context['catg']) + " account's password. We are sending the OTP to authenticate if this is you or not. Please do not share this OTP with anyone else. This is highly confidential. The OTP is " + str(cd)
 			dropindb(veremail,context['username'])
 			ef = veremail.objects.create(ab=int(cd), uname=str(context['username']))
-#			sendmail(context['email'],sub,body)
+			sendmail(context['email'],sub,body)
 			template = loader.get_template('fpassotp.html')
 			return HttpResponse(template.render(context,request))
 
@@ -353,7 +356,10 @@ def fpassinit(request):
 			return HttpResponse("sorry but the details are not matching with the database")
 	else:
 		template = loader.get_template('fpassinit.html')
-		return HttpResponse(template.render())
+		context={}
+		context.update(csrf(request))
+
+		return HttpResponse(template.render(context,request))
 
 def fpassotp(request):
 	if request.method == 'POST':
@@ -378,22 +384,18 @@ def fpassotp(request):
 
 def chpass(request):
 	if request.method == "POST":
-		ctg = request.POST.get("catg")
+		catg = request.POST.get("catg")
 		p1 = request.POST.get("password")
 		p2 = request.POST.get("passwordconfrm")
 		uname = request.POST.get("uname")
 		if p1 == p2:
 			print("working",p1,p2)
-			fndb = None
-			if ctg == "donor":
-				fndb = Donor_reg
-			elif ctg == "hospital":
-				fndb = Hospital_reg
-			elif ctg == "patient":
-				fndb = Patient_reg
+			fndb = dbp[catg]
 			fndb.objects.filter(username = uname).update(password=md5hash(p1))
 #			print("succesfully changed password")
-		return HttpResponseRedirect("/accounts/login")
+			return HttpResponseRedirect("/accounts/login")
+		else:
+			context = {'catg' : catg, 'uname' : uname, 'error' : error}
 	else:
 		return HttpResponseRedirect("/")
 
@@ -402,10 +404,9 @@ def profile(request):
 	var = 'sess_id_'+str(catg)
 	if request.session.has_key(var):
 		print('working')
-		uname = request.session[var].split("_")[2]
+		uname = request.session[var].lstrip("bbms_").lstrip(catg).lstrip("_")
 		print(uname)
 		al = dbp[catg].objects.filter(username = uname).get()
-#		dt = dbt[catg].objects.filter(userd = al).get()
 		context = {'uname' : uname}
 #		context['details'] = catg
 		if catg=="user":
@@ -422,11 +423,52 @@ def uppurofile(request):
 	if request.method == "POST":
 		details = request.POST
 		uname = details['uname']
-		fndb = dbp[details['catg']]
+		catg = details['catg']
+		usr = dbp[catg].objects.get(username=uname)
+		print(catg)
+		fndb = dbt[catg]
 		print(uname)
-#		if 
+		if catg == "hospital":
+			if details['line1']:
+				fndb.objects.filter(username=uname).update(ad_line1=details['line1'])
+			if details['line2']:
+				fndb.objects.filter(username=uname).update(ad_line2=details['line2'])
+			if details['city']:
+				fndb.objects.filter(username=uname).update(city=details['city'])
+			if details['state']:
+				fndb.objects.filter(username=uname).update(state=details['state'])
+			if details['pinocode']:
+				fndb.objects.filter(username=uname).update(ad_line1=details['pincode'])
+			if details['license']:
+				fndb.objects.filter(username=uname).update(license=details['license'])
+
+		elif catg == "user":
+			if details['line1']:
+				fndb.objects.filter(userp=usr).update(d_o_b=details['dob'])
+			if details['line2']:
+				fndb.objects.filter(userp=usr).update(ph_no=details['phno'])
+
+		if catg == "donor":
+			if details['line1']:
+				fndb.objects.filter(userd=usr).update(ad_line1=details['line1'])
+			if details['line2']:
+				fndb.objects.filter(userd=usr).update(ad_line2=details['line2'])
+			if details['city']:
+				fndb.objects.filter(userd=usr).update(city=details['city'])
+			if details['state']:
+				fndb.objects.filter(userd=usr).update(state=details['state'])
+			if details['pincode']:
+				fndb.objects.filter(userd=usr).update(pincode=details['pincode'])
+			if details['weight']:
+				fndb.objects.filter(userd=usr).update(weight=details['weight'])
+			if details['height']:
+				fndb.objects.filter(userd=usr).update(height=details['height'])
+			if details['dob']:
+				fndb.objects.filter(userd=usr).update(d_o_b=details['dob'])
+			if details['phno']:
+				fndb.objects.filter(userd=usr).update(ph_no=details['phno'])
 #		fndb.objects.filter()
-	return HttpResponse("Hello")
+	return HttpResponseRedirect("/accounts/profile?catg="+str(catg)+"&updated=updated")
 
 def upsett(request):
 	if request.method == "POST":
@@ -448,6 +490,11 @@ def upsett(request):
 					context['newper'] = 1
 			else:
 				context['oldp'] = 1
+		catg = passc['catg']
+		if catg=="user":
+			context['catg'] = 'userd'
+		else:
+			context['catg'] = catg
 		template =  loader.get_template('profile.html')
 		return HttpResponse(template.render(context,request))
 	else:
