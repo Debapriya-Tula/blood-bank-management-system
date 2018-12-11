@@ -5,7 +5,7 @@ from .forms import *
 from accounts.models import Donor_reg, Donor_details
 from django.contrib import messages
 from accounts.models import veremail
-from accounts.views import confirm_register, dropindb
+from accounts.views import confirm_register, dropindb, sendmail, em_verify
 from random import randint as rand
 # Create your views here.
 
@@ -50,7 +50,7 @@ def donor(request):
                 code = rand(100000,999999)
                 ef = veremail.objects.create(ab=int(code), uname=un)
                 print(code)
-#               em_verify(email, code)
+                em_verify(user.email, code)
                 context = {'uname':un, 'catg': 'donor'}
                 print(context)
                 return render(request,'confirm_register.html',context)

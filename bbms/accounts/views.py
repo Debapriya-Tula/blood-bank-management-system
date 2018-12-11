@@ -50,7 +50,7 @@ def sendmail(email,subject,body):
 	mail.HTMLBody = '<p>'+str(body)+'</p>'
 	mail.send
 
-def em_verify(code):
+def em_verify(email,code):
 	sub="OTP for registration in Blood_bank_management_website"
 	body="This is a computer generated mail. Please do not reply back to this email.<br> The OTP code for your registration process is "+str(code)
 	sendmail(email,sub,body)
@@ -75,10 +75,13 @@ def tryreq(response,request):
 
 def em_verified(name,db):
 	if db == "donor":
+		print('updated for donor')
 		Donor_reg.objects.filter(username=name).update(email_verified=1)
 	elif db == "users":
+		print('updated for user')
 		Patient_reg.objects.filter(username=name).update(email_verified=1)
 	elif db == "hospital":
+		print('updated for hospital')
 		Hospital_reg.objects.filter(username=name).update(email_verified=1)
 
 #	Confirm registration function. User is redirected to this view for OTP verification
@@ -100,10 +103,13 @@ def confirm_register(request):
 			template = loader.get_template('confirm_register.html')
 			context['error'] =  "Sorry. OTP didn't mtach."
 			context.update(csrf(request))
-
+			context['nbar'] = "register"
 			response = HttpResponse(template.render(context,request))
 			tryreq(response,request)
 			return response
+	else:
+		return HttpResponseRedirect('/')
+
 
 
 #	Uploads the data to the database
@@ -135,6 +141,9 @@ def register(request):
 		flagem = 0
 		flagun = 0
 		type = request.POST.get('category')
+
+# Construct the details for uploading it to database
+
 		if str(type) == str("donor"):
 			details = {
 				'fname' : request.POST.get('fname'),
@@ -207,37 +216,41 @@ def register(request):
 				'uname' : unm,
 				'catg' : 'type',
 			}
-		dropindb(veremail,unm)
+
+		dropindb(veremail,unm)	# drops in database if there is a previous record
 		email = details['email']
 		context.update(csrf(request))
+		context['nbar'] = "register"
 		code = rand(100000,999999)
-		print('working',code)
+
+# Checks if there is a user with this username or email
 
 		if flagem==0:
 			if flagun == 0:
-				print('working',code)
+				print('working')
+				em_verify(email, code)
 				uptodb(type,details,code)
-				#em_verify(email,code)
 				template = loader.get_template('confirm_register.html')
 				return HttpResponse(template.render(context,request))
 			else:
 				context['eunm'] = 'uname' 
 		else:
 			context['eem'] = 'email' 
-		template = loader.get_template('register.html')
+		template = loader.get_template('reg.html')
 		print('loaded template')
 		return HttpResponse(template.render(context,request))
 
+# render the template
 
 	else:
-		template = loader.get_template('register.html')
+		template = loader.get_template('reg.html')
 		context = {}
 		context.update(csrf(request))
+		context['nbar'] = "register"
 		return HttpResponse(template.render(context,request))
 
-def index(request):
-	template = loader.get_template('index.html')
-	return HttpResponse(template.render())
+
+# login function
 
 def login(request):
 	if request.method == "POST":
@@ -253,15 +266,16 @@ def login(request):
 			fndb = Hospital_reg
 		elif str(wry) == 'user':
 			fndb = Patient_reg
-#		try:
-		rs = fndb.objects.filter(username=uname,password=md5hash(passwd))
+
+		rs = fndb.objects.filter(username=uname,password=md5hash(passwd))	# get the user object
+
 		if rs:
 			context = {'uname':uname}
 			template = loader.get_template('aflogin.html')
-			request.session['sess_id_'+str(wry)]='bbms_'+str(wry)+'_'+str(uname)
-			settings.SESSION_EXPIRE_AT_BROWSER_CLOSE =  False
+			request.session['sess_id_'+str(wry)]='bbms_'+str(wry)+'_'+str(uname)	# create the session
+			settings.SESSION_EXPIRE_AT_BROWSER_CLOSE =  False	# session should not expire even after brwser closes
 			context[str(wry)] = uname
-			if request.session.has_key('sess_togo'):
+			if request.session.has_key('sess_togo'):	#	checks if the user entered from homepage
 				togo = request.session['sess_togo']
 				del request.session['sess_togo']
 				if togo=='donor':
@@ -279,8 +293,8 @@ def login(request):
 			context['error'] = "Sorry. Invalid credentils."
 			response = HttpResponse(template.render(context,request)) 
 			context.update(csrf(request))
-			if tryreq(response,request):
-				return HttpResponse("You've tried incorrectly three times. Please try again after some time")
+			if tryreq(response,request):	
+				return HttpResponse("You've tried incorrectly three times. Please try again after some time")	# User has reached maximum number of tries for the session 
 
 			return response
 
@@ -288,12 +302,16 @@ def login(request):
 		template = loader.get_template('login.html')
 		context = { 'form':loginform }
 		context.update(csrf(request))
+		context['nbar'] = 'register'
 		return HttpResponse(template.render(context,request))
 
 def aflogin(request):
 
 	flag = 0
 	context = {}
+
+# Checks for users in sessions
+
 	if request.session.has_key('sess_id_user'):
 		un = str(request.session['sess_id_user']).split('_')
 		context['user'] = un[2]
@@ -304,18 +322,17 @@ def aflogin(request):
 		context['hospital'] = un[2]
 		flag = 1 
 
-	if request.session.has_key('sess_id_donors'):
-		un = str(request.session['sess_id_donors']).split('_')
+	if request.session.has_key('sess_id_donor'):
+		un = str(request.session['sess_id_donor']).split('_')
 		context['donor'] = un[2]
 		flag = 1
 
 	context.update(csrf(request))
-
+	context['nbar'] = "register"
 	if flag==1:
 		template = loader.get_template('aflogin.html')
 		return HttpResponse(template.render(context,request))
 	else:
-#		print("Hello")
 		return HttpResponseRedirect("/accounts/login/")
 
 
@@ -325,10 +342,12 @@ def logout(request):
 		ctg = request.GET.get('ctg')
 		if ctg == "userd":
 			if request.session.has_key('sess_id_user'):
-				del request.session['sess_id_user']
+				del request.session['sess_id_user']		# deletes the session for the requested users
 		if request.session.has_key('sess_id_'+str(ctg)):
 			del request.session['sess_id_'+str(ctg)]
-	return HttpResponse("<p>You're logged out.</p>")
+	return HttpResponseRedirect('/')
+
+# function for forgot password
 
 def fpassinit(request):
 	if request.method == 'POST':
@@ -336,7 +355,6 @@ def fpassinit(request):
 		context['email'] = request.POST.get('email')
 		context['username'] = request.POST.get('uname')
 		context['catg'] = request.POST.get('catg')
-#		print(context)
 		fndb = dbp[context['catg']]
 		context.update(csrf(request))
 
@@ -348,17 +366,21 @@ def fpassinit(request):
 			body = "We found that you are trying to change your " + str(context['catg']) + " account's password. We are sending the OTP to authenticate if this is you or not. Please do not share this OTP with anyone else. This is highly confidential. The OTP is " + str(cd)
 			dropindb(veremail,context['username'])
 			ef = veremail.objects.create(ab=int(cd), uname=str(context['username']))
-			sendmail(context['email'],sub,body)
+			sendmail(context['email'],sub,body)		# sends the email
 			template = loader.get_template('fpassotp.html')
 			return HttpResponse(template.render(context,request))
 
 		else:
-			return HttpResponse("sorry but the details are not matching with the database")
+			context = {'error' : "Sorry. But the details doesn't even match with our database"}
+			template = loader.get_template('fpassinit.html')
+			context['nbar'] = "register"
+			return HttpResponse(template.render(context,request))
+			
 	else:
 		template = loader.get_template('fpassinit.html')
 		context={}
 		context.update(csrf(request))
-
+		context['nbar'] = "register"
 		return HttpResponse(template.render(context,request))
 
 def fpassotp(request):
@@ -369,13 +391,15 @@ def fpassotp(request):
 		uname = request.POST.get('uname')
 #		print(otp,uname)
 		try:
-			context = {'uname':"Sowri",'form':passconfrm, "catg":catg}
 			cd = int(get_data('ab',uname,veremail))
 			if cd == otp:
+				context = {'uname':"Sowri",'form':passconfrm, "catg":catg}
 				template = loader.get_template('fpassverfied.html')
 				return HttpResponse(template.render(context,request))
 			else:
-				return HttpResponse("OTP doesn't match.")
+				context = {'error' : "Please enter correct OTP.", 'username' : uname, 'catg' : catg }
+				template = loader.get_template('fpassotp.html')
+				return HttpResponse(template.render(context,request))
 		except:
 			return HttpResponse("Sorry. But either the username doesn't exist or you've bypassed the OTP verifcation. ")
 
@@ -395,7 +419,10 @@ def chpass(request):
 #			print("succesfully changed password")
 			return HttpResponseRedirect("/accounts/login")
 		else:
-			context = {'catg' : catg, 'uname' : uname, 'error' : error}
+			context = {'uname': uname,'form':passconfrm, "catg":catg, 'error' : "Password's doesn't match."}
+			template = loader.get_template('fpassverfied.html')
+			return HttpResponse(template.render(context,request))
+
 	else:
 		return HttpResponseRedirect("/")
 

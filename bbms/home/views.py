@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.template import loader
 from django.http import HttpResponse, HttpResponseRedirect
+from accounts.models import Donor_reg,Patient_reg,Hospital_reg
 
 def index(request):
     context = {}
@@ -20,7 +21,11 @@ def index(request):
         hc = hc.lstrip('bbms_')
         context['hospital'] = hc.lstrip('hospital')
         print('working',context['hospital'])
-    template = loader.get_template('main.html')
+    context['count']=Donor_reg.objects.all().count()
+    context['count1']=Patient_reg.objects.all().count()
+    context['count2']=Hospital_reg.objects.all().count()
+    context['nbar']='home'
+    template = loader.get_template('base.html')
     return HttpResponse(template.render(context,request))
 
 def toportal(request):
@@ -50,3 +55,7 @@ def toportal(request):
             return HttpResponseRedirect('/payments/bd_'+togo)
         else:
             return HttpResponseRedirect('/accounts/login')
+
+def aboutus(request):
+    template = loader.get_template('about1.html')
+    return HttpResponse(template.render())

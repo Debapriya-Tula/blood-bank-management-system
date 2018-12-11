@@ -5,7 +5,7 @@ from .forms import *
 from accounts.models import Hospital_reg
 from django.contrib import messages
 from accounts.models import veremail
-from accounts.views import confirm_register, dropindb
+from accounts.views import confirm_register, dropindb, sendmail
 from random import randint as rand
 # Create your views here.
 
@@ -48,23 +48,11 @@ def hospital(request):
 
 # Create your views here.
 
-from django.core.mail import send_mail
-from django.conf import settings
-
-
-def send_email(message,recipient_list):
-    subject = 'New user'
-    email_from = settings.EMAIL_HOST_USER
-    send_mail( subject, message, email_from, recipient_list)
-    #return HttpResponse("I am done")
-
 
 def tell_admin(email,username):
     message = "A new hospital, {0} with mail-id {2} has sent details".format(username,email)
-    recipient_list = [str(email)]
-
             #Send the mail to the admin who will check for detail authentication
-    send_email(message,recipient_list)
+    sendmail(email, "Hospital requested for blood",message)
 
             #Send a whatsapp message to the user
     #from .whatsapp import fill_details

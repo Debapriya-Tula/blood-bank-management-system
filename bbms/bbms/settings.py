@@ -16,7 +16,16 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Channels
-ASGI_APPLICATION = 'mysite.routing.application'
+ASGI_APPLICATION = 'bbms.routing.application'
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
 
 
 # Quick-start development settings - unsuitable for production
@@ -60,7 +69,11 @@ INSTALLED_APPS = [
 	'patient_portal',
 	'stripe',	
 	'payments',
+	'celery',
+	'celerybeat_status',
 	'donorapi',
+	'django_server_access_logs',
+	'rest_framework.authtoken',
 #	'django.contrib.sites.models.Site',
 #	'microsoft_auth',
 #	'django.contrib.staticfiles',
@@ -70,11 +83,12 @@ MIDDLEWARE = [
 	'django.middleware.security.SecurityMiddleware',
 	'django.contrib.sessions.middleware.SessionMiddleware',
 	'django.middleware.common.CommonMiddleware',
-#	'django.middleware.csrf.CsrfViewMiddleware',
+	'django.middleware.csrf.CsrfViewMiddleware',
 	'django.contrib.auth.middleware.AuthenticationMiddleware',
 	'django.contrib.messages.middleware.MessageMiddleware',
 	'django.middleware.clickjacking.XFrameOptionsMiddleware',
 	'social_django.middleware.SocialAuthExceptionMiddleware',
+	'django_server_access_logs.logging_middleware.AccessLogsMiddleware',
 ]
 
 ROOT_URLCONF = 'bbms.urls'
@@ -100,6 +114,12 @@ TEMPLATES = [
 	},
 ]
 
+"""REST_FRAMEWORK = {
+	'DEFAULT_AUTHENTICATION_CLASSES': (
+		'rest_framework.authentication.SessionAuthentication',
+	)
+}
+"""
 WSGI_APPLICATION = 'bbms.wsgi.application'
 
 
@@ -206,14 +226,6 @@ SOCIAL_AUTH_FACEBOOK_SCOPE = [
 	'user_hometown',
 ]
 
-SESSION_COOKIE_AGE = 600      #10 minutes.
-
-REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ]
-}
-
 SITE_ID = 1
 
 SOCIALACCOUNT_PROVIDERS = {
@@ -241,3 +253,25 @@ SOCIALACCOUNT_PROVIDERS = {
         'VERSION': 'v2.12',
     }
 }
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+
+from celery.schedules import crontab
+
+CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Asia/Dili'
+CELERY_BEAT_SCHEDULE =  {'task-number-one': {
+                            'task': 'InventoryManagement.tasks.removeExpired',
+                            'schedule': 86400.0,
+                            'args': ('Nothing'),
+                            },
+                            'task-number-two': {
+                            'task': 'InventoryManagement.tasks.thaw_blood',
+                            'schedule': 86400.0,
+                            'args':('Nothing')
+                            }
+                        }

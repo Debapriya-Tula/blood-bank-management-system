@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from donorapi import views
 
 urlpatterns = [
 	path(r'', include('home.urls')),
@@ -24,6 +25,7 @@ urlpatterns = [
 	path(r'admin/', admin.site.urls),
 	path(r'accounts/', include('accounts.urls')),
 	#path(r'csystem/', include('csystem.urls')),
+#	path(r'donorapi/', include('donorapi.urls')),
 #	path(r'api-auth/', include('rest_framework.urls')),
 	path(r'inventory/', include('InventoryManagement.urls')),
 	path(r'payments/', include('payments.urls')),
@@ -32,7 +34,8 @@ urlpatterns = [
 	path(r'patient_portal/', include('patient_portal.urls')),
 	path(r'chat/', include('chat.urls')),
 	path(r'oauth/', include('allauth.urls')),
-
+	path(r'api/',include('donorapi.urls')),
+	path(r'^admin/statuscheck/', include('celerybeat_status.urls'))
 ]
 
 '''if settings.DEBUG:

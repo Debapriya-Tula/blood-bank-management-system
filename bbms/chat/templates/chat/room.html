@@ -2,13 +2,70 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+    <style> 
+	.edit {
+		align: center;
+	  	width: 950px;
+	  	height: 700px
+	  	box-sizing: border-box;
+	  	border: 2px solid #eee;
+	  	border-radius: 50px;
+	  	font-size: 20px;
+	  	background-image: url('9525584.jpg');
+	  	opacity:0.8;
+	  	background-repeat: no-repeat;
+	  	padding: 12px 20px 12px 40px;
+	  	-webkit-transition: width 0.4s ease-in-out;
+	  	transition: width 0.4s ease-in-out;
+	  	box-shadow: 5px 10px;
+	}
+	
+	#chat-message-submit {
+		width: 110px;
+	  	height: 60px;
+	  	background-color: pink;
+	  	border: none;
+	  	color: purple;
+	  	padding: 20px;
+	  	text-align: center;
+	  	text-decoration: none;
+	  	display: inline-block;
+	  	font-size: 16px;
+	  	margin: 4px 2px;
+		
+	}
+
+
+}
+    </style>
     <meta charset="utf-8"/>
     <title>Chat Room</title>
 </head>
-<body>
-    <textarea id="chat-log" cols="100" rows="20"></textarea><br/>
-    <input id="chat-message-input" type="text" size="100"/><br/>
-    <input id="chat-message-submit" type="button" value="Send"/>
+
+
+
+
+<body style="background-color:#999;" background="https://cdn5.vectorstock.com/i/1000x1000/55/84/blood-donation-background-vector-9525584.jpg">
+    <textarea id="chat-log" cols="100" rows="20" class="edit"></textarea><br/><br><br>
+    <input id="chat-message-input" type="text" style="height:30px;width:900px" class="edit" placeholder="Write Here..."/>&nbsp;&nbsp;
+    <input id="chat-message-submit" type="button" value="Send" style="border-radius:48%;"/>
+    
+    
+    <!-- <script>
+        document.querySelector('#chat-message-input').focus();
+        document.querySelector('#chat-message-input').onkeyup = function(e) {
+            if (e.keyCode === 13) {  // enter, return
+                document.querySelector('#chat-message-submit').click();
+            }
+        };
+
+        document.querySelector('#chat-message-submit').onclick = function(e) {
+            var roomName = document.querySelector('#chat-message-input').value;
+            window.location.pathname = '/chat/' + "{{chatroom}}" + roomName +'/';
+        };
+    </script> -->
+    
 </body>
 <script>
     var roomName = {{ room_name_json }};
@@ -35,7 +92,9 @@
     };
 
     document.querySelector('#chat-message-submit').onclick = function(e) {
+   
         var messageInputDom = document.querySelector('#chat-message-input');
+        var roomName = document.querySelector('#chat-message-input').value;
         var message = messageInputDom.value;
         chatSocket.send(JSON.stringify({
             'message': message

@@ -1,12 +1,42 @@
 <!-- chat/templates/chat/index.html -->
 <!DOCTYPE html>
+{% load static %}
 <html>
 <head>
+	<link rel="stylesheet" type="text/css" href="{% static 'chat/style.css' %}">
+    <style>
+		wrap {
+			width: 100%;
+		}
+		image {
+			background-image: url("https://www.gettyimages.ie/gi-resources/images/Homepage/Hero/UK/CMS_Creative_164657191_Kingfisher.jpg");
+			position: relative;
+			height: 100vh;
+			
+		}
+		.image:before{
+			content: '';-+
+			position: absolute;
+			top: 0;
+			right: 0;
+			left: 0;
+			bottom: 0;
+			background: rgba(0,0,0,0.5);
+		}
+		.text {
+			color: #FFF;
+			position: relative;
+		}
+	</style>
     <meta charset="utf-8"/>
     <title>Chat Rooms</title>
 </head>
-<body>
+<body background="https://previews.123rf.com/images/rawpixel/rawpixel1501/rawpixel150101427/35336361-ask-us-concepts-isolated-on-background.jpg">
+<div class="wrap">
+<div class="image">
+<div class="text">
   <center>
+  
     <p style="font-size:300%;">What kind of interaction do you want?<br>
       Please select one of the below.</p>
   </center>
@@ -17,9 +47,9 @@
 		<li>Our Workings</li>
 	</ul>
    <center>
-    <input id="room-name-input" type="text" size="100"/><br/>
-    <input id="room-name-submit" type="button" value="Enter"/>
-   </	center>
+    <input id="room-name-input" type="text" size="60" style="border-radius:10%;height:35px;background-color:#ccc" placeholder="Write Here..."/>
+    <input id="room-name-submit" type="button" value="Enter" style="border-radius:30%;height:40px;width:90px"/>
+   </center>
 
     <script>
         document.querySelector('#room-name-input').focus();
@@ -34,6 +64,9 @@
             window.location.pathname = '/chat/' + roomName + '/';
         };
     </script>
-  
+
+  </div>
+  </div>
+  </div>
 </body>
 </html>
