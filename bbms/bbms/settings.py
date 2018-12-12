@@ -46,7 +46,6 @@ INSTALLED_APPS = [
 	'channels',
     'chat',
 	'accounts',
-	'nearest_bbanks',
 	'allauth',
 	'allauth.account',
 	'allauth.socialaccount',
